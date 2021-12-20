@@ -1,4 +1,4 @@
-# ATS (American Truck Simulator) Job Book
+# ATS Job Book
 
 you put in the stuff and it does a thing
 
