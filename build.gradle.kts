@@ -16,7 +16,11 @@ repositories {
 }
 
 dependencies {
+    // kotlin
     implementation(kotlin("stdlib"))
+    // logging
+    implementation("ch.qos.logback:logback-classic:1.2.9")
+    // testing
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
