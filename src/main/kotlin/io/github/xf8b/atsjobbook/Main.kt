@@ -20,22 +20,51 @@
 package io.github.xf8b.atsjobbook
 
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
-import java.nio.file.Files
-import java.nio.file.Path
+import javafx.application.Application
+import javafx.geometry.Pos
+import javafx.scene.Scene
+import javafx.scene.control.Button
+import javafx.scene.control.Label
+import javafx.scene.control.TextField
+import javafx.scene.layout.GridPane
+import javafx.scene.layout.HBox
+import javafx.scene.layout.StackPane
+import javafx.scene.layout.VBox
+import javafx.stage.Stage
 
-class Main {
+class Main : Application() {
+    override fun start(primaryStage: Stage) {
+        // this is all temporary
+        val button = Button("Start Job")
+        button.setOnAction {
+            Stage().apply {
+                title = "Start Job"
+                val label = Label("Starting City")
+                val startingCity = TextField()
+                val pane = GridPane().apply {
+                    add(label, 0, 0)
+                    add(startingCity, 1, 0)
+                    hgap = 10.0
+                    vgap = 10.0
+                }
+                val box = VBox(HBox(pane).apply { alignment = Pos.CENTER })
+                    .apply { alignment = Pos.CENTER }
+                scene = Scene(box, 500.0, 500.0)
+            }.show()
+        }
+        primaryStage.title = "ATS Job Log"
+        primaryStage.scene = Scene(StackPane(button), 300.0, 300.0)
+        primaryStage.show()
+
+        LOGGER.info("Success!")
+    }
+
     companion object {
         private val LOGGER by LoggerDelegate()
 
         @JvmStatic
         fun main(vararg args: String) {
-            val userDirectory = Path.of(System.getProperty("user.dir"))
-
-            if (Files.notExists(userDirectory.resolve("storage"))) {
-                LOGGER.info("Creating storage directory for program files...")
-                Files.createDirectories(userDirectory.resolve("storage"))
-                LOGGER.info("Successfully created storage directory.")
-            }
+            launch(Main::class.java, *args)
         }
     }
 }

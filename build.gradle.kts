@@ -20,10 +20,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
 
 plugins {
-    java
-    kotlin("jvm") version "1.6.10"
-    application
-    idea
+    java // language
+    kotlin("jvm") version "1.6.10" // language
+    application // running
+    id("org.openjfx.javafxplugin") version "0.0.10" // javafx
 }
 
 group = "io.github.xf8b"
@@ -42,14 +42,19 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // testing
 }
 
-application {
-    mainClass.set("io.github.xf8b.atsjobbook.Main")
-}
-
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+application {
+    mainClass.set("io.github.xf8b.atsjobbook.Main")
+}
+
+javafx {
+    version = "17"
+    modules = listOf("javafx.controls")
 }
 
 tasks {
