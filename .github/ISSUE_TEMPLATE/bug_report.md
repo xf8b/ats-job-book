@@ -2,7 +2,7 @@
 name: Bug report
 about: Report a bug to help us improve the program
 title: ''
-labels: ''
+labels: bug
 assignees: xf8b
 
 ---

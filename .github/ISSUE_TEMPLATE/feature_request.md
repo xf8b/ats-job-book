@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea to help us improve the program
 title: ''
-labels: ''
+labels: feature
 assignees: xf8b
 
 ---
