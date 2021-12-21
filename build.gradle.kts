@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2021 xf8b.
+ *
+ * This file is part of ats-job-book.
+ *
+ * ats-job-book is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ats-job-book is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
 
 plugins {
@@ -16,13 +35,11 @@ repositories {
 }
 
 dependencies {
-    // kotlin
-    implementation(kotlin("stdlib"))
-    // logging
-    implementation("ch.qos.logback:logback-classic:1.2.9")
-    // testing
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    implementation(kotlin("stdlib")) // kotlin
+    implementation("ch.qos.logback:logback-classic:1.2.9") // logging
+    implementation("com.google.code.gson:gson:2.8.9") // json
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2") // testing
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // testing
 }
 
 application {
