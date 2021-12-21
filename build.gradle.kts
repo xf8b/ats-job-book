@@ -33,11 +33,10 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib")) // kotlin
     implementation("ch.qos.logback:logback-classic:1.2.9") // logging
     implementation("com.google.code.gson:gson:2.8.9") // json
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2") // testing
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") // testing
+    testImplementation(platform("org.junit:junit-bom:5.8.2")) // testing
+    testImplementation("org.junit.jupiter:junit-jupiter") // testing
 }
 
 java {
@@ -51,8 +50,8 @@ application {
 }
 
 javafx {
-    version = "17"
-    modules = listOf("javafx.controls")
+    version = "17.0.1"
+    modules = listOf("javafx.controls", "javafx.fxml")
 }
 
 tasks {
