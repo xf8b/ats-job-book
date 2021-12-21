@@ -17,8 +17,6 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
-
 plugins {
     java // language
     kotlin("jvm") version "1.6.10" // language
@@ -58,14 +56,23 @@ javafx {
 }
 
 tasks {
-    test {
-        useJUnitPlatform()
-    }
-
-    withType<CompileKotlin>().configureEach {
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "17"
             languageVersion = "1.6"
         }
+    }
+
+    jar {
+        manifest {
+            attributes(
+                "Manifest-Version" to "1.0",
+                "Main-Class" to "io.github.xf8b.atsjobbook.Main"
+            )
+        }
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
