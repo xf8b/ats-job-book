@@ -17,29 +17,25 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook
+package io.github.xf8b.atsjobbook.util
 
-import io.github.xf8b.atsjobbook.util.LoggerDelegate
-import io.github.xf8b.atsjobbook.view.MainView
-import javafx.application.Application
+import io.github.xf8b.atsjobbook.view.View
 import javafx.scene.Scene
 import javafx.stage.Stage
 
-class Main : Application() {
-    override fun start(primaryStage: Stage) {
-        primaryStage.title = "ATS Job Log"
-        primaryStage.scene = Scene(MainView().root)
-        primaryStage.show()
+class DefaultWindowFactory : WindowFactory {
+    override fun createWindow(view: View, title: String) {
+        val stage = Stage()
 
-        LOGGER.info("Successfully started the program!")
+        stage.title = title
+        stage.scene = Scene(view.root)
+
+        stage.show()
+
+        LOGGER.info("Opened a new window with the title $title")
     }
 
     companion object {
         private val LOGGER by LoggerDelegate()
-
-        @JvmStatic
-        fun main(vararg args: String) {
-            launch(Main::class.java, *args)
-        }
     }
 }

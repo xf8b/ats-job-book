@@ -4,7 +4,7 @@ module io.github.xf8b.atsjobbook {
     requires javafx.fxml; // javafx fxml
     requires org.slf4j; // logging
 
-    opens io.github.xf8b.atsjobbook to javafx.fxml; // required for fxml reflection
+    opens io.github.xf8b.atsjobbook.view to javafx.fxml; // required for fxml reflection
 
     exports io.github.xf8b.atsjobbook; // idk lol
 }

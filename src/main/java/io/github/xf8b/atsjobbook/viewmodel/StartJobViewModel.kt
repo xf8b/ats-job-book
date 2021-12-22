@@ -17,29 +17,23 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook
+package io.github.xf8b.atsjobbook.viewmodel
 
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
-import io.github.xf8b.atsjobbook.view.MainView
-import javafx.application.Application
-import javafx.scene.Scene
-import javafx.stage.Stage
+import javafx.beans.property.SimpleObjectProperty
 
-class Main : Application() {
-    override fun start(primaryStage: Stage) {
-        primaryStage.title = "ATS Job Log"
-        primaryStage.scene = Scene(MainView().root)
-        primaryStage.show()
+class StartJobViewModel {
+    val stateProperty = SimpleObjectProperty<String>()
+    val cityProperty = SimpleObjectProperty<String>()
 
-        LOGGER.info("Successfully started the program!")
+    fun onStateChange() {
+        LOGGER.info("You picked: ${stateProperty.get()}")
+    }
+
+    fun onCityChange() {
     }
 
     companion object {
         private val LOGGER by LoggerDelegate()
-
-        @JvmStatic
-        fun main(vararg args: String) {
-            launch(Main::class.java, *args)
-        }
     }
 }
