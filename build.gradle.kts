@@ -43,9 +43,12 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+
+    modularity.inferModulePath.set(true)
 }
 
 application {
+    mainModule.set("io.github.xf8b.atsjobbook")
     mainClass.set("io.github.xf8b.atsjobbook.Main")
 }
 
