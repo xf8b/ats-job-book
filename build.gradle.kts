@@ -24,6 +24,7 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.10" // javafx
 }
 
+// package details
 group = "io.github.xf8b"
 base.archivesName.set("ats-job-book")
 version = "0.1.0"
@@ -41,9 +42,11 @@ dependencies {
 
 java {
     toolchain {
+        // require java 17
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 
+    // enable module-path inferring
     modularity.inferModulePath.set(true)
 }
 
@@ -60,8 +63,8 @@ javafx {
 tasks {
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = "17"
-            languageVersion = "1.6"
+            jvmTarget = "17" // use java 17
+            languageVersion = "1.6" // use kotlin 1.6
         }
     }
 
@@ -75,10 +78,12 @@ tasks {
     }
 
     compileJava {
+        // set module version
         options.javaModuleVersion.set(provider { project.version as String })
     }
 
     test {
+        // use junit platform for testing
         useJUnitPlatform()
     }
 }

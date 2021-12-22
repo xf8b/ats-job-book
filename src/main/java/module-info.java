@@ -6,5 +6,5 @@ module io.github.xf8b.atsjobbook {
 
     opens io.github.xf8b.atsjobbook.view to javafx.fxml; // required for fxml reflection
 
-    exports io.github.xf8b.atsjobbook; // idk lol
+    exports io.github.xf8b.atsjobbook; // allow main class to be used
 }
