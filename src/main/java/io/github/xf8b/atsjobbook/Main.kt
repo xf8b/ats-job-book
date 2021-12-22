@@ -27,6 +27,7 @@ import javafx.stage.Stage
 
 class Main : Application() {
     override fun start(primaryStage: Stage) {
+        // set up the main screen
         primaryStage.title = "ATS Job Log"
         primaryStage.scene = Scene(MainView().root)
         primaryStage.show()

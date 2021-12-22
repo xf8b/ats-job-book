@@ -39,10 +39,15 @@ class StartJobView : View {
 
     @FXML
     private fun initialize() {
+        // add all the states so that it's available
+        // this does NOT add the cities, since it will be changed depending on the state
         state.items.addAll(STATES)
 
+        // arrow in one direction means it DEPENDS on the other (e.g. a -> b means a depends on b)
+        // viewModel.state -> this.state
         viewModel.stateProperty.bind(state.valueProperty())
-        viewModel.cityProperty.bind(city.valueProperty())
+        // viewModel.city <-> this.city
+        viewModel.cityProperty.bindBidirectional(city.valueProperty())
     }
 
     fun onStateChange() {

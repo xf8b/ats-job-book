@@ -29,13 +29,26 @@ class Resources {
     companion object {
         private val LOGGER by LoggerDelegate()
 
+        /**
+         * Gets and returns the URL of a file in the JAR (?).
+         *
+         * @return the URL of the file, or null if it does not exist
+         */
         private fun resourceUrl(name: String): URL? = Main::class.java.classLoader.getResource(name)
 
+        /**
+         * Loads a FXML file and returns the loaded object's hierarchy.
+         *
+         * @return the loaded object's hierarchy
+         * @throws NoSuchElementException if there is no such file with the specified name
+         * @throws IOException if an error occurs during loading (and the file exists)
+         */
         fun loadFxml(name: String): Parent = try {
-            FXMLLoader.load(resourceUrl(name))
-        } catch (exception: IOException) {
-            LOGGER.error("Could not load FXML file $name", exception)
-            throw IllegalStateException(exception)
+            FXMLLoader.load(
+                resourceUrl(name) ?: throw NoSuchElementException("No such file with name $name")
+            )
+        } catch (exception: Exception) {
+            throw exception.also { LOGGER.error("Could not load FXML file $name", exception) }
         }
     }
 }

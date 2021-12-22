@@ -26,7 +26,12 @@ import kotlin.reflect.KProperty
 class LoggerDelegate<in T : Any> {
     private lateinit var logger: Logger
 
-    operator fun getValue(thisRef: T, property: KProperty<*>): Logger =
-        if (!::logger.isInitialized) LoggerFactory.getLogger(thisRef.javaClass)
-        else logger
+    operator fun getValue(thisRef: T, property: KProperty<*>): Logger {
+        if (!::logger.isInitialized) {
+            // if the logger has not been set, set it
+            logger = LoggerFactory.getLogger(thisRef.javaClass)
+        }
+
+        return logger
+    }
 }

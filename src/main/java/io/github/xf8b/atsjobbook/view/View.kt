@@ -19,8 +19,20 @@
 
 package io.github.xf8b.atsjobbook.view
 
+import io.github.xf8b.atsjobbook.util.Resources
 import javafx.scene.Parent
+import java.io.IOException
 
+/**
+ * A view which takes care of displaying things to the user via a GUI.
+ */
 interface View {
+    /**
+     * The FXML file to load when creating a new window.
+     *
+     * @throws NoSuchElementException if there is no such file with the specified name
+     * @throws IOException if an error occurs during loading (and the file exists)
+     * @see Resources.loadFxml
+     */
     val root: Parent
 }

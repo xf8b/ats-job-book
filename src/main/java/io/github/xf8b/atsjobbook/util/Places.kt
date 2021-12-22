@@ -19,6 +19,9 @@
 
 package io.github.xf8b.atsjobbook.util
 
+/**
+ * A list of all the American Truck Simulator states, in alphabetical order.
+ */
 val STATES = listOf(
     "Arizona",
     "California",
@@ -32,6 +35,11 @@ val STATES = listOf(
     "Wyoming",
 ).sorted()
 
+/**
+ * A map of all the American Truck Simulator cities, in alphabetical order.
+ *
+ * The map structure is STATE to CITIES.
+ */
 val CITIES = mapOf(
     "Arizona" to listOf(
         "Camp Verde",
