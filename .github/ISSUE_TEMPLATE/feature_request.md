@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea to help me improve the program
+about: Suggest an idea to help us improve the program
 title: ''
 labels: feature
 assignees: xf8b
