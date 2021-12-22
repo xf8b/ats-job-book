@@ -5,7 +5,7 @@
 ### Meanings
 
 | Text               | Meaning               |
-| ------------------ | --------------------- |
+|--------------------|-----------------------|
 | :white_check_mark: | Fully supported       |
 | :warning:          | Only security updates |
 | :x:                | Unsupported           |
@@ -13,7 +13,7 @@
 ### Versions
 
 | Version | Supported          |
-| ------- | ------------------ |
+|---------|--------------------|
 | 0.1.0   | :white_check_mark: |
 
 ## Reporting a Vulnerability

@@ -74,6 +74,10 @@ tasks {
         }
     }
 
+    compileJava {
+        options.javaModuleVersion.set(provider { project.version as String })
+    }
+
     test {
         useJUnitPlatform()
     }
