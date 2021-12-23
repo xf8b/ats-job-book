@@ -19,22 +19,24 @@
 
 package io.github.xf8b.atsjobbook.util
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import kotlin.reflect.KProperty
+import javafx.application.Platform
 
-/**
- * It just makes things look nicer.
- */
-class LoggerDelegate<in T : Any> {
-    private lateinit var logger: Logger
+class EventBus {
+    private val subscribers = mutableMapOf<EventType, MutableList<() -> Unit>>()
 
-    operator fun getValue(thisRef: T, property: KProperty<*>): Logger {
-        if (!::logger.isInitialized) {
-            // if the logger has not been set, set it
-            logger = LoggerFactory.getLogger(thisRef.javaClass)
+    fun subscribe(event: EventType, subscriber: () -> Unit) {
+        // if no subscribers with this event have been added yet, create an empty list for the event
+        if (!subscribers.containsKey(event)) subscribers[event] = mutableListOf()
+
+        // add the subscriber
+        subscribers[event]?.plusAssign(subscriber)
+    }
+
+    fun publish(event: EventType) {
+        Platform.runLater {
+            subscribers[event]?.forEach { it() }
         }
-
-        return logger
     }
 }
+
+interface EventType

@@ -25,6 +25,9 @@ import javafx.scene.Parent
 import java.io.IOException
 import java.net.URL
 
+/**
+ * A utility class which helps with finding and loading resources.
+ */
 class Resources {
     companion object {
         private val LOGGER by LoggerDelegate()

@@ -32,22 +32,24 @@ class StartJobView : View {
     private val viewModel = StartJobViewModel()
 
     @FXML
-    private lateinit var state: ComboBox<String>
+    private lateinit var stateComboBox: ComboBox<String>
 
     @FXML
-    private lateinit var city: ComboBox<String>
+    private lateinit var cityComboBox: ComboBox<String>
 
     @FXML
     private fun initialize() {
         // add all the states so that it's available
         // this does NOT add the cities, since it will be changed depending on the state
-        state.items.addAll(STATES)
+        stateComboBox.items.addAll(STATES)
 
         // arrow in one direction means it DEPENDS on the other (e.g. a -> b means a depends on b)
-        // viewModel.state -> this.state
-        viewModel.stateProperty.bind(state.valueProperty())
-        // viewModel.city <-> this.city
-        viewModel.cityProperty.bindBidirectional(city.valueProperty())
+        // viewModel.selectedState -> this.selectedState
+        viewModel.selectedStateProperty.bind(stateComboBox.valueProperty())
+        // viewModel.selectedCity -> this.selectedCity
+        viewModel.selectedCityProperty.bind(cityComboBox.valueProperty())
+        // viewModel.cityChoices <-> this.cityChoices
+        viewModel.cityChoicesProperty.bindBidirectional(cityComboBox.itemsProperty())
     }
 
     fun onStateChange() {

@@ -19,6 +19,33 @@
 
 package io.github.xf8b.atsjobbook.model
 
-class StartJobModel {
-    // TODO: change city selection based on state selection
+import io.github.xf8b.atsjobbook.util.CITIES
+import io.github.xf8b.atsjobbook.util.EventBus
+import io.github.xf8b.atsjobbook.util.EventType
+import io.github.xf8b.atsjobbook.util.LoggerDelegate
+
+class StartJobModel(private val eventBus: EventBus) {
+    var citiesAvailable = listOf<String>()
+        private set
+
+    fun onStateChange(state: String) {
+        val cities = CITIES[state]
+
+        citiesAvailable = if (cities == null) {
+            LOGGER.error("State not found in the CITIES map; reset the cities list")
+            listOf()
+        } else {
+            cities
+        }
+
+        eventBus.publish(StartJobEventType.CHANGE_CITIES_AVAILABLE)
+    }
+
+    companion object {
+        private val LOGGER by LoggerDelegate()
+    }
+}
+
+enum class StartJobEventType : EventType {
+    CHANGE_CITIES_AVAILABLE,
 }

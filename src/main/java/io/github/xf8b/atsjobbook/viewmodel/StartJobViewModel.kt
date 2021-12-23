@@ -19,18 +19,35 @@
 
 package io.github.xf8b.atsjobbook.viewmodel
 
+import io.github.xf8b.atsjobbook.model.StartJobEventType
+import io.github.xf8b.atsjobbook.model.StartJobModel
+import io.github.xf8b.atsjobbook.util.EventBus
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
 import javafx.beans.property.SimpleObjectProperty
+import javafx.collections.ObservableList
 
 class StartJobViewModel {
-    val stateProperty = SimpleObjectProperty<String>()
-    val cityProperty = SimpleObjectProperty<String>()
+    private val eventBus = EventBus()
+    private val model = StartJobModel(eventBus)
+    val selectedStateProperty = SimpleObjectProperty<String>()
+    val selectedCityProperty = SimpleObjectProperty<String>()
+    val cityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+
+    init {
+        eventBus.subscribe(StartJobEventType.CHANGE_CITIES_AVAILABLE) {
+            cityChoicesProperty.get().setAll(model.citiesAvailable)
+        }
+    }
 
     fun onStateChange() {
-        LOGGER.info("You picked: ${stateProperty.get()}")
+        val state = selectedStateProperty.get()
+
+        model.onStateChange(state)
+        LOGGER.info("You selected: $state")
     }
 
     fun onCityChange() {
+        LOGGER.info("You selected: ${selectedCityProperty.get()}, ${selectedStateProperty.get()}")
     }
 
     companion object {
