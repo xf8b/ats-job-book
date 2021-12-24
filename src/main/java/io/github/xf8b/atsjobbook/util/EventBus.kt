@@ -21,9 +21,17 @@ package io.github.xf8b.atsjobbook.util
 
 import javafx.application.Platform
 
+/**
+ * A simple implementation of an event bus (or subscriber system).
+ *
+ * Event types must implement [EventType].
+ */
 class EventBus {
     private val subscribers = mutableMapOf<EventType, MutableList<() -> Unit>>()
 
+    /**
+     * Subscribe to a specific event; when that event fires, you will be notified via [subscriber].
+     */
     fun subscribe(event: EventType, subscriber: () -> Unit) {
         // if no subscribers with this event have been added yet, create an empty list for the event
         if (!subscribers.containsKey(event)) subscribers[event] = mutableListOf()
@@ -32,11 +40,20 @@ class EventBus {
         subscribers[event]?.plusAssign(subscriber)
     }
 
+    /**
+     * Publish an event, notifying all the subscribers that subscribed to this event type.
+     */
     fun publish(event: EventType) {
         Platform.runLater {
+            // fire each subscriber (if any have subscribed)
             subscribers[event]?.forEach { it() }
         }
     }
 }
 
+/**
+ * An event type.
+ *
+ * You are required to implement this for your events to use it in the [EventBus] system.
+ */
 interface EventType

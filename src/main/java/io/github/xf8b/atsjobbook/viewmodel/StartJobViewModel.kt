@@ -35,6 +35,7 @@ class StartJobViewModel {
 
     init {
         eventBus.subscribe(StartJobEventType.CHANGE_CITIES_AVAILABLE) {
+            selectedCityProperty.set(null)
             cityChoicesProperty.get().setAll(model.citiesAvailable)
         }
     }
@@ -47,6 +48,8 @@ class StartJobViewModel {
     }
 
     fun onCityChange() {
+        if (selectedCityProperty.get() == null) return
+
         LOGGER.info("You selected: ${selectedCityProperty.get()}, ${selectedStateProperty.get()}")
     }
 

@@ -1,5 +1,6 @@
 module io.github.xf8b.atsjobbook {
     requires kotlin.stdlib; // kotlin
+    requires kotlin.reflect; // kotlin reflection
     requires javafx.controls; // javafx
     requires javafx.fxml; // javafx fxml
     requires org.slf4j; // logging

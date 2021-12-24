@@ -32,7 +32,12 @@ class LoggerDelegate<in T : Any> {
     operator fun getValue(thisRef: T, property: KProperty<*>): Logger {
         if (!::logger.isInitialized) {
             // if the logger has not been set, set it
-            logger = LoggerFactory.getLogger(thisRef.javaClass)
+            logger = LoggerFactory.getLogger(
+                // if thisRef is a companion object, use the enclosing class instead
+                if (thisRef::class.isCompanion) thisRef.javaClass.enclosingClass
+                // else just use thisRef
+                else thisRef.javaClass
+            )
         }
 
         return logger

@@ -29,15 +29,17 @@ class StartJobModel(private val eventBus: EventBus) {
         private set
 
     fun onStateChange(state: String) {
-        val cities = CITIES[state]
+        val citiesFound = CITIES[state]
 
-        citiesAvailable = if (cities == null) {
-            LOGGER.error("State not found in the CITIES map; reset the cities list")
+        citiesAvailable = if (citiesFound == null) {
+            // this should be impossible, but just in case
+            LOGGER.error("State not found in the CITIES map; resetting the cities list")
             listOf()
         } else {
-            cities
+            citiesFound
         }
 
+        // publish event to notify the view-model
         eventBus.publish(StartJobEventType.CHANGE_CITIES_AVAILABLE)
     }
 
@@ -47,5 +49,8 @@ class StartJobModel(private val eventBus: EventBus) {
 }
 
 enum class StartJobEventType : EventType {
+    /**
+     * Fired when the available city choices have been changed.
+     */
     CHANGE_CITIES_AVAILABLE,
 }

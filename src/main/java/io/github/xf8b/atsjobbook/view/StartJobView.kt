@@ -46,8 +46,8 @@ class StartJobView : View {
         // arrow in one direction means it DEPENDS on the other (e.g. a -> b means a depends on b)
         // viewModel.selectedState -> this.selectedState
         viewModel.selectedStateProperty.bind(stateComboBox.valueProperty())
-        // viewModel.selectedCity -> this.selectedCity
-        viewModel.selectedCityProperty.bind(cityComboBox.valueProperty())
+        // viewModel.selectedCity <-> this.selectedCity
+        viewModel.selectedCityProperty.bindBidirectional(cityComboBox.valueProperty())
         // viewModel.cityChoices <-> this.cityChoices
         viewModel.cityChoicesProperty.bindBidirectional(cityComboBox.itemsProperty())
     }

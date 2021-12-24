@@ -6,8 +6,8 @@ updates:
       interval: "daily"
     assignees:
       - "xf8b"
-    reviewers:
-      - "xf8b"
+    labels:
+      - "dependencies"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -15,5 +15,5 @@ updates:
       interval: "daily"
     assignees:
       - "xf8b"
-    reviewers:
-      - "xf8b"
+    labels:
+      - "dependencies"
