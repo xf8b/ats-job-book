@@ -19,18 +19,55 @@
   ~ along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
           fx:controller="io.github.xf8b.atsjobbook.view.StartJobView"
-          prefHeight="400.0" prefWidth="600.0"
+          prefHeight="600.0" prefWidth="800.0"
           alignment="CENTER"
           hgap="10" vgap="10">
-    <HBox spacing="10" alignment="CENTER">
-        <Label text="Starting City:"/>
-        <ComboBox fx:id="stateComboBox" onAction="#onStateChange"/>
-        <ComboBox fx:id="cityComboBox" onAction="#onCityChange"/>
-    </HBox>
+    <VBox spacing="10">
+        <!-- starting and ending cities -->
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="0">
+            <Label text="Starting City"/>
+            <ComboBox fx:id="startingStateComboBox" onAction="#onStartingStateChange" prefWidth="150"/>
+            <ComboBox fx:id="startingCityComboBox" onAction="#onStartingCityChange" prefWidth="200"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="1">
+            <Label text="Ending City"/>
+            <ComboBox fx:id="endingStateComboBox" onAction="#onEndingStateChange" prefWidth="150"/>
+            <ComboBox fx:id="endingCityComboBox" onAction="#onEndingCityChange" prefWidth="200"/>
+        </HBox>
+        <!-- starting and ending companies -->
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Starting Company"/>
+            <ComboBox fx:id="startingCompanyComboBox" onAction="#onStartingCompanyChange" prefWidth="200"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3">
+            <Label text="Ending Company"/>
+            <ComboBox fx:id="endingCompanyComboBox" onAction="#onEndingCompanyChange" prefWidth="200"/>
+        </HBox>
+        <!-- load type and weight -->
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="4">
+            <Label text="Load Type"/>
+            <TextField fx:id="loadTypeTextField" onKeyTyped="#onLoadTypeChange" prefWidth="200"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="5">
+            <Label text="Load Weight"/>
+            <TextField fx:id="loadWeightTextField" onKeyTyped="#onLoadWeightChange" prefWidth="100"/>
+            <ComboBox fx:id="loadWeightMeasurementComboBox" onAction="#onLoadWeightMeasurementChange" prefWidth="125">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="pounds"/>
+                        <String fx:value="kilograms"/>
+                        <String fx:value="short tons"/>
+                        <String fx:value="long tons"/>
+                        <String fx:value="metric tons"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+    </VBox>
 </GridPane>

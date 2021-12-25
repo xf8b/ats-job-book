@@ -19,28 +19,82 @@
 
 package io.github.xf8b.atsjobbook.model
 
-import io.github.xf8b.atsjobbook.util.CITIES
 import io.github.xf8b.atsjobbook.util.EventBus
 import io.github.xf8b.atsjobbook.util.EventType
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
+import io.github.xf8b.atsjobbook.util.Resources
 
 class StartJobModel(private val eventBus: EventBus) {
-    var citiesAvailable = listOf<String>()
+    private lateinit var startingState: String
+    private lateinit var startingCity: String
+    private lateinit var endingState: String
+    private lateinit var endingCity: String
+    private lateinit var startingCompany: String
+    private lateinit var endingCompany: String
+    private lateinit var loadType: String
+
+    var startingCitiesAvailable = listOf<String>()
+        private set
+    var endingCitiesAvailable = listOf<String>()
         private set
 
-    fun onStateChange(state: String) {
-        val citiesFound = CITIES[state]
+    fun onStartingStateChange(state: String) {
+        startingState = state
+        startingCitiesAvailable = Resources.loadCities(state)
 
-        citiesAvailable = if (citiesFound == null) {
-            // this should be impossible, but just in case
-            LOGGER.error("State not found in the CITIES map; resetting the cities list")
-            listOf()
-        } else {
-            citiesFound
-        }
+        LOGGER.info("Starting state was changed to $startingState")
+        LOGGER.info("Starting cities available are now ${startingCitiesAvailable.joinToString()}")
 
         // publish event to notify the view-model
-        eventBus.publish(StartJobEventType.CHANGE_CITIES_AVAILABLE)
+        eventBus.publish(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE)
+    }
+
+    fun onStartingCityChange(city: String) {
+        startingCity = city
+
+        LOGGER.info("Starting city was changed to $startingCity, $startingState")
+    }
+
+    fun onEndingStateChange(state: String) {
+        endingState = state
+        endingCitiesAvailable = Resources.loadCities(state)
+
+        LOGGER.info("Ending state was changed to $endingState")
+        LOGGER.info("Ending cities available are now ${endingCitiesAvailable.joinToString()}")
+
+        eventBus.publish(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE)
+    }
+
+    fun onEndingCityChange(city: String) {
+        endingCity = city
+
+        LOGGER.info("Ending city was changed to $endingCity, $endingState")
+    }
+
+    fun onStartingCompanyChange(company: String) {
+        startingCompany = company
+
+        LOGGER.info("Starting company was changed to $startingCompany")
+    }
+
+    fun onEndingCompanyChange(company: String) {
+        endingCompany = company
+
+        LOGGER.info("Ending company was changed to $endingCompany")
+    }
+
+    fun onLoadTypeChange(loadType: String) {
+        this.loadType = loadType
+
+        LOGGER.info("Load type was set to $loadType")
+    }
+
+    fun onLoadWeightChange(loadWeight: String) {
+        LOGGER.info("Load weight was set to $loadWeight")
+    }
+
+    fun onLoadWeightMeasurementChange(measurement: String) {
+        LOGGER.info("Load weight is now measured in $measurement")
     }
 
     companion object {
@@ -50,7 +104,8 @@ class StartJobModel(private val eventBus: EventBus) {
 
 enum class StartJobEventType : EventType {
     /**
-     * Fired when the available city choices have been changed.
+     * Fired when the available starting city choices have been changed.
      */
-    CHANGE_CITIES_AVAILABLE,
+    CHANGE_STARTING_CITIES_AVAILABLE,
+    CHANGE_ENDING_CITIES_AVAILABLE,
 }

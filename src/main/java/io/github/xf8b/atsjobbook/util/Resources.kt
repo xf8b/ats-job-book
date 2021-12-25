@@ -19,10 +19,13 @@
 
 package io.github.xf8b.atsjobbook.util
 
-import io.github.xf8b.atsjobbook.Main
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import java.io.IOException
+import java.io.InputStream
+import java.io.Reader
 import java.net.URL
 
 /**
@@ -37,7 +40,20 @@ class Resources {
          *
          * @return the URL of the file, or null if it does not exist
          */
-        private fun resourceUrl(name: String): URL? = Main::class.java.classLoader.getResource(name)
+        private fun resourceUrl(name: String): URL? = Resources::class.java.classLoader.getResource(name)
+
+        private fun resourceStream(name: String): InputStream? =
+            Resources::class.java.classLoader.getResourceAsStream(name)
+
+        private fun loadFile(name: String): String = try {
+            val stream = resourceStream(name) ?: throw NoSuchElementException("File $name does not exist")
+
+            stream.bufferedReader().use(Reader::readText)
+        } catch (exception: Exception) {
+            throw exception.also {
+                LOGGER.error("An error occurred while trying to load $name", exception)
+            }
+        }
 
         /**
          * Loads a FXML file and returns the loaded object's hierarchy.
@@ -53,5 +69,25 @@ class Resources {
         } catch (exception: Exception) {
             throw exception.also { LOGGER.error("Could not load FXML file $name", exception) }
         }
+
+        fun loadStates() = JsonParser.parseString(loadFile("places.json"))
+            .asJsonObject
+            .keySet()
+            .toList()
+            .sorted()
+
+        fun loadCities(state: String) = JsonParser.parseString(loadFile("places.json"))
+            .asJsonObject
+            .get(state)
+            .asJsonArray
+            .toList()
+            .map(JsonElement::getAsString)
+            .sorted()
+
+        fun loadCompanies() = JsonParser.parseString(loadFile("companies.json"))
+            .asJsonArray
+            .toList()
+            .map(JsonElement::getAsString)
+            .sorted()
     }
 }

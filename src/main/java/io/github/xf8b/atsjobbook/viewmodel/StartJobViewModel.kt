@@ -22,38 +22,82 @@ package io.github.xf8b.atsjobbook.viewmodel
 import io.github.xf8b.atsjobbook.model.StartJobEventType
 import io.github.xf8b.atsjobbook.model.StartJobModel
 import io.github.xf8b.atsjobbook.util.EventBus
-import io.github.xf8b.atsjobbook.util.LoggerDelegate
 import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 
 class StartJobViewModel {
     private val eventBus = EventBus()
     private val model = StartJobModel(eventBus)
-    val selectedStateProperty = SimpleObjectProperty<String>()
-    val selectedCityProperty = SimpleObjectProperty<String>()
-    val cityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+
+    // starting city properties
+    val startingStateProperty = SimpleStringProperty()
+    val startingCityProperty = SimpleStringProperty()
+    val startingCityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+
+    // ending city properties
+    val endingStateProperty = SimpleStringProperty()
+    val endingCityProperty = SimpleStringProperty()
+    val endingCityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+
+    // company properties
+    val startingCompanyProperty = SimpleStringProperty()
+    val endingCompanyProperty = SimpleStringProperty()
+
+    // load properties
+    val loadTypeProperty = SimpleStringProperty()
+    val loadWeightProperty = SimpleStringProperty()
+    val loadWeightMeasurementProperty = SimpleStringProperty()
 
     init {
-        eventBus.subscribe(StartJobEventType.CHANGE_CITIES_AVAILABLE) {
-            selectedCityProperty.set(null)
-            cityChoicesProperty.get().setAll(model.citiesAvailable)
+        eventBus.subscribe(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE) {
+            startingCityProperty.set(null)
+            startingCityChoicesProperty.get().setAll(model.startingCitiesAvailable)
+        }
+
+        eventBus.subscribe(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE) {
+            endingCityProperty.set(null)
+            endingCityChoicesProperty.get().setAll(model.endingCitiesAvailable)
         }
     }
 
-    fun onStateChange() {
-        val state = selectedStateProperty.get()
-
-        model.onStateChange(state)
-        LOGGER.info("You selected: $state")
+    fun onStartingStateChange() {
+        model.onStartingStateChange(startingStateProperty.get())
     }
 
-    fun onCityChange() {
-        if (selectedCityProperty.get() == null) return
+    fun onStartingCityChange() {
+        if (startingCityProperty.get() == null) return
 
-        LOGGER.info("You selected: ${selectedCityProperty.get()}, ${selectedStateProperty.get()}")
+        model.onStartingCityChange(startingCityProperty.get())
     }
 
-    companion object {
-        private val LOGGER by LoggerDelegate()
+    fun onEndingStateChange() {
+        model.onEndingStateChange(endingStateProperty.get())
+    }
+
+    fun onEndingCityChange() {
+        if (endingCityProperty.get() == null) return
+
+        model.onEndingCityChange(endingCityProperty.get())
+    }
+
+    fun onStartingCompanyChange() {
+        model.onStartingCompanyChange(startingCompanyProperty.get())
+    }
+
+    fun onEndingCompanyChange() {
+        model.onEndingCompanyChange(endingCompanyProperty.get())
+    }
+
+    fun onLoadTypeChange() {
+        model.onLoadTypeChange(loadTypeProperty.get())
+    }
+
+    fun onLoadWeightChange() {
+        model.onLoadWeightChange(loadWeightProperty.get())
+    }
+
+    fun onLoadWeightMeasurementChange() {
+        model.onLoadWeightMeasurementChange(loadWeightMeasurementProperty.get())
     }
 }
