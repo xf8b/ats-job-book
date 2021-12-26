@@ -60,13 +60,16 @@ class StartJobView : View {
 
     @FXML
     private fun initialize() {
+        // load the states and companies from the resources
         val states = Resources.loadStates()
         val companies = Resources.loadCompanies()
-        // add all the states so that it's available
-        // this does NOT add the cities, since it will be changed depending on the state
+
+        // add all the states
+        // this does NOT add the cities, since that will be changed depending on the state
         startingStateComboBox.items.addAll(states)
         endingStateComboBox.items.addAll(states)
 
+        // add all the companies
         startingCompanyComboBox.items.addAll(companies)
         endingCompanyComboBox.items.addAll(companies)
 
@@ -79,6 +82,7 @@ class StartJobView : View {
         viewModel.startingCityChoicesProperty.bindBidirectional(startingCityComboBox.itemsProperty())
 
         // set up the bindings for ending city
+        // TODO: comments
         viewModel.endingStateProperty.bind(endingStateComboBox.valueProperty())
         viewModel.endingCityProperty.bindBidirectional(endingCityComboBox.valueProperty())
         viewModel.endingCityChoicesProperty.bindBidirectional(endingCityComboBox.itemsProperty())
@@ -92,39 +96,48 @@ class StartJobView : View {
         viewModel.loadWeightMeasurementProperty.bind(loadWeightMeasurementComboBox.valueProperty())
     }
 
-    fun onStartingStateChange() {
+    @FXML
+    private fun onStartingStateChange() {
         viewModel.onStartingStateChange()
     }
 
-    fun onStartingCityChange() {
+    @FXML
+    private fun onStartingCityChange() {
         viewModel.onStartingCityChange()
     }
 
-    fun onEndingStateChange() {
+    @FXML
+    private fun onEndingStateChange() {
         viewModel.onEndingStateChange()
     }
 
-    fun onEndingCityChange() {
+    @FXML
+    private fun onEndingCityChange() {
         viewModel.onEndingCityChange()
     }
 
-    fun onStartingCompanyChange() {
+    @FXML
+    private fun onStartingCompanyChange() {
         viewModel.onStartingCompanyChange()
     }
 
-    fun onEndingCompanyChange() {
+    @FXML
+    private fun onEndingCompanyChange() {
         viewModel.onEndingCompanyChange()
     }
 
-    fun onLoadTypeChange() {
+    @FXML
+    private fun onLoadTypeChange() {
         viewModel.onLoadTypeChange()
     }
 
-    fun onLoadWeightChange() {
+    @FXML
+    private fun onLoadWeightChange() {
         viewModel.onLoadWeightChange()
     }
 
-    fun onLoadWeightMeasurementChange() {
+    @FXML
+    private fun onLoadWeightMeasurementChange() {
         viewModel.onLoadWeightMeasurementChange()
     }
 }

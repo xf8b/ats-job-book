@@ -51,12 +51,16 @@ class StartJobViewModel {
 
     init {
         eventBus.subscribe(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE) {
+            // reset the value property
             startingCityProperty.set(null)
+            // replace all the old starting cities to the new ones
             startingCityChoicesProperty.get().setAll(model.startingCitiesAvailable)
         }
 
         eventBus.subscribe(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE) {
+            // reset the value property
             endingCityProperty.set(null)
+            // replace all the old ending cities to the new ones
             endingCityChoicesProperty.get().setAll(model.endingCitiesAvailable)
         }
     }
@@ -66,8 +70,6 @@ class StartJobViewModel {
     }
 
     fun onStartingCityChange() {
-        if (startingCityProperty.get() == null) return
-
         model.onStartingCityChange(startingCityProperty.get())
     }
 
@@ -76,8 +78,6 @@ class StartJobViewModel {
     }
 
     fun onEndingCityChange() {
-        if (endingCityProperty.get() == null) return
-
         model.onEndingCityChange(endingCityProperty.get())
     }
 

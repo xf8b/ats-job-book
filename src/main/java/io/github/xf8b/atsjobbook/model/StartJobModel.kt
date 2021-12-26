@@ -25,67 +25,56 @@ import io.github.xf8b.atsjobbook.util.LoggerDelegate
 import io.github.xf8b.atsjobbook.util.Resources
 
 class StartJobModel(private val eventBus: EventBus) {
-    private lateinit var startingState: String
-    private lateinit var startingCity: String
-    private lateinit var endingState: String
-    private lateinit var endingCity: String
-    private lateinit var startingCompany: String
-    private lateinit var endingCompany: String
-    private lateinit var loadType: String
-
     var startingCitiesAvailable = listOf<String>()
         private set
     var endingCitiesAvailable = listOf<String>()
         private set
 
     fun onStartingStateChange(state: String) {
-        startingState = state
+        // change starting cities available to the state's cities
         startingCitiesAvailable = Resources.loadCities(state)
 
-        LOGGER.info("Starting state was changed to $startingState")
+        LOGGER.info("Starting state was changed to $state")
         LOGGER.info("Starting cities available are now ${startingCitiesAvailable.joinToString()}")
 
-        // publish event to notify the view-model
+        // publish event to notify the view model
         eventBus.publish(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE)
     }
 
-    fun onStartingCityChange(city: String) {
-        startingCity = city
+    fun onStartingCityChange(city: String?) {
+        // prevent null being used as the starting city during a state change
+        if (city == null) return
 
-        LOGGER.info("Starting city was changed to $startingCity, $startingState")
+        LOGGER.info("Starting city was changed to $city")
     }
 
     fun onEndingStateChange(state: String) {
-        endingState = state
+        // change ending cities available to the state's cities
         endingCitiesAvailable = Resources.loadCities(state)
 
-        LOGGER.info("Ending state was changed to $endingState")
+        LOGGER.info("Ending state was changed to $state")
         LOGGER.info("Ending cities available are now ${endingCitiesAvailable.joinToString()}")
 
+        // publish event to notify the view model
         eventBus.publish(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE)
     }
 
-    fun onEndingCityChange(city: String) {
-        endingCity = city
+    fun onEndingCityChange(city: String?) {
+        // prevent null being used as the ending city during a state change
+        if (city == null) return
 
-        LOGGER.info("Ending city was changed to $endingCity, $endingState")
+        LOGGER.info("Ending city was changed to $city")
     }
 
     fun onStartingCompanyChange(company: String) {
-        startingCompany = company
-
-        LOGGER.info("Starting company was changed to $startingCompany")
+        LOGGER.info("Starting company was changed to $company")
     }
 
     fun onEndingCompanyChange(company: String) {
-        endingCompany = company
-
-        LOGGER.info("Ending company was changed to $endingCompany")
+        LOGGER.info("Ending company was changed to $company")
     }
 
     fun onLoadTypeChange(loadType: String) {
-        this.loadType = loadType
-
         LOGGER.info("Load type was set to $loadType")
     }
 
@@ -107,5 +96,9 @@ enum class StartJobEventType : EventType {
      * Fired when the available starting city choices have been changed.
      */
     CHANGE_STARTING_CITIES_AVAILABLE,
+
+    /**
+     * Fired when the available ending city choices have been changed.
+     */
     CHANGE_ENDING_CITIES_AVAILABLE,
 }
