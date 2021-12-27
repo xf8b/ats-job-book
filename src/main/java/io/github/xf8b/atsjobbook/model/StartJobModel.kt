@@ -30,7 +30,7 @@ class StartJobModel(private val eventBus: EventBus) {
     var endingCitiesAvailable = listOf<String>()
         private set
 
-    fun onStartingStateChange(state: String) {
+    fun updateStartingCitiesAvailable(state: String) {
         // change starting cities available to the state's cities
         startingCitiesAvailable = Resources.loadCities(state)
 
@@ -41,14 +41,7 @@ class StartJobModel(private val eventBus: EventBus) {
         eventBus.publish(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE)
     }
 
-    fun onStartingCityChange(city: String?) {
-        // prevent null being used as the starting city during a state change
-        if (city == null) return
-
-        LOGGER.info("Starting city was changed to $city")
-    }
-
-    fun onEndingStateChange(state: String) {
+    fun updateEndingCitiesAvailable(state: String) {
         // change ending cities available to the state's cities
         endingCitiesAvailable = Resources.loadCities(state)
 
@@ -59,31 +52,8 @@ class StartJobModel(private val eventBus: EventBus) {
         eventBus.publish(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE)
     }
 
-    fun onEndingCityChange(city: String?) {
-        // prevent null being used as the ending city during a state change
-        if (city == null) return
-
-        LOGGER.info("Ending city was changed to $city")
-    }
-
-    fun onStartingCompanyChange(company: String) {
-        LOGGER.info("Starting company was changed to $company")
-    }
-
-    fun onEndingCompanyChange(company: String) {
-        LOGGER.info("Ending company was changed to $company")
-    }
-
-    fun onLoadTypeChange(loadType: String) {
-        LOGGER.info("Load type was set to $loadType")
-    }
-
-    fun onLoadWeightChange(loadWeight: String) {
-        LOGGER.info("Load weight was set to $loadWeight")
-    }
-
-    fun onLoadWeightMeasurementChange(measurement: String) {
-        LOGGER.info("Load weight is now measured in $measurement")
+    fun save(data: StartJobData) {
+        // TODO: serialize to the storage folder
     }
 
     companion object {
@@ -102,3 +72,15 @@ enum class StartJobEventType : EventType {
      */
     CHANGE_ENDING_CITIES_AVAILABLE,
 }
+
+data class StartJobData(
+    val startingState: String,
+    val startingCity: String,
+    val endingState: String,
+    val endingCity: String,
+    val startingCompany: String,
+    val endingCompany: String,
+    val loadType: String,
+    val loadWeight: Int,
+    val loadWeightMeasurement: String,
+)

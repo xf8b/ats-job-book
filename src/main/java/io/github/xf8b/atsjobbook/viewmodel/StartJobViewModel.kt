@@ -19,26 +19,28 @@
 
 package io.github.xf8b.atsjobbook.viewmodel
 
+import io.github.xf8b.atsjobbook.model.StartJobData
 import io.github.xf8b.atsjobbook.model.StartJobEventType
 import io.github.xf8b.atsjobbook.model.StartJobModel
 import io.github.xf8b.atsjobbook.util.EventBus
+import io.github.xf8b.atsjobbook.util.WindowFactory
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 
-class StartJobViewModel {
+class StartJobViewModel(private val windowFactory: WindowFactory) {
     private val eventBus = EventBus()
     private val model = StartJobModel(eventBus)
 
     // starting city properties
     val startingStateProperty = SimpleStringProperty()
     val startingCityProperty = SimpleStringProperty()
-    val startingCityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+    val startingCitiesAvailableProperty = SimpleObjectProperty<ObservableList<String>>()
 
     // ending city properties
     val endingStateProperty = SimpleStringProperty()
     val endingCityProperty = SimpleStringProperty()
-    val endingCityChoicesProperty = SimpleObjectProperty<ObservableList<String>>()
+    val endingCitiesAvailableProperty = SimpleObjectProperty<ObservableList<String>>()
 
     // company properties
     val startingCompanyProperty = SimpleStringProperty()
@@ -53,51 +55,85 @@ class StartJobViewModel {
         eventBus.subscribe(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE) {
             // reset the value property
             startingCityProperty.set(null)
-            // replace all the old starting cities to the new ones
-            startingCityChoicesProperty.get().setAll(model.startingCitiesAvailable)
+            // change the starting cities available to the new ones
+            startingCitiesAvailableProperty.get().setAll(model.startingCitiesAvailable)
         }
 
         eventBus.subscribe(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE) {
             // reset the value property
             endingCityProperty.set(null)
-            // replace all the old ending cities to the new ones
-            endingCityChoicesProperty.get().setAll(model.endingCitiesAvailable)
+            // change the ending cities available to the new ones
+            endingCitiesAvailableProperty.get().setAll(model.endingCitiesAvailable)
         }
     }
 
     fun onStartingStateChange() {
-        model.onStartingStateChange(startingStateProperty.get())
-    }
-
-    fun onStartingCityChange() {
-        model.onStartingCityChange(startingCityProperty.get())
+        model.updateStartingCitiesAvailable(startingStateProperty.get())
     }
 
     fun onEndingStateChange() {
-        model.onEndingStateChange(endingStateProperty.get())
+        model.updateEndingCitiesAvailable(endingStateProperty.get())
     }
 
-    fun onEndingCityChange() {
-        model.onEndingCityChange(endingCityProperty.get())
-    }
+    fun onSaveButtonPressed() {
+        val startingState = startingStateProperty.get()
+        val startingCity = startingCityProperty.get()
+        val endingState = endingStateProperty.get()
+        val endingCity = endingCityProperty.get()
+        val startingCompany = startingCompanyProperty.get()
+        val endingCompany = endingCompanyProperty.get()
+        val loadType = loadTypeProperty.get()
+        val loadWeight = loadWeightProperty.get()
+        val loadWeightMeasurement = loadWeightMeasurementProperty.get()
 
-    fun onStartingCompanyChange() {
-        model.onStartingCompanyChange(startingCompanyProperty.get())
-    }
+        if (startingState == null
+            || startingCity == null
+            || endingState == null
+            || endingCity == null
+            || startingCompany == null
+            || endingCompany == null
+            || loadType == null || loadType.isBlank()
+            || loadWeight == null || loadWeight.isBlank()
+            || loadWeightMeasurement == null
+        ) {
+            windowFactory.createErrorAlert(
+                title = "Input is not complete",
+                content = "Please fill out all fields before saving."
+            )
 
-    fun onEndingCompanyChange() {
-        model.onEndingCompanyChange(endingCompanyProperty.get())
-    }
+            return
+        }
 
-    fun onLoadTypeChange() {
-        model.onLoadTypeChange(loadTypeProperty.get())
-    }
+        val loadWeightAsInt = loadWeight.toIntOrNull()
 
-    fun onLoadWeightChange() {
-        model.onLoadWeightChange(loadWeightProperty.get())
-    }
+        if (loadWeightAsInt == null) {
+            windowFactory.createErrorAlert(
+                title = "Load weight is invalid",
+                content = "The load weight must be an integer."
+            )
 
-    fun onLoadWeightMeasurementChange() {
-        model.onLoadWeightMeasurementChange(loadWeightMeasurementProperty.get())
+            return
+        } else if (loadWeightAsInt <= 0) {
+            windowFactory.createErrorAlert(
+                title = "Load weight is invalid",
+                content = "The load weight must be greater than 0."
+            )
+
+            return
+        }
+
+        model.save(
+            StartJobData(
+                startingState,
+                startingCity,
+                endingState,
+                endingCity,
+                startingCompany,
+                endingCompany,
+                loadType,
+                loadWeightAsInt,
+                loadWeightMeasurement
+            )
+        )
     }
 }

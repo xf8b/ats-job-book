@@ -31,4 +31,6 @@ interface WindowFactory {
      * The preferred size of the window is specified by the FXML file.
      */
     fun createWindow(view: View, title: String)
+
+    fun createErrorAlert(title: String, content: String)
 }

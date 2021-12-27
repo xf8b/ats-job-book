@@ -19,17 +19,20 @@
 
 package io.github.xf8b.atsjobbook.view
 
+import io.github.xf8b.atsjobbook.util.DefaultWindowFactory
 import io.github.xf8b.atsjobbook.util.Resources
 import io.github.xf8b.atsjobbook.viewmodel.StartJobViewModel
 import javafx.fxml.FXML
 import javafx.scene.Parent
+import javafx.scene.control.Button
+import javafx.scene.control.ButtonBar
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
 class StartJobView : View {
     override val root: Parent
         get() = Resources.loadFxml("start-job.fxml")
-    private val viewModel = StartJobViewModel()
+    private val viewModel = StartJobViewModel(DefaultWindowFactory())
 
     @FXML
     private lateinit var startingStateComboBox: ComboBox<String>
@@ -59,10 +62,16 @@ class StartJobView : View {
     private lateinit var loadWeightMeasurementComboBox: ComboBox<String>
 
     @FXML
+    private lateinit var saveButton: Button
+
+    @FXML
     private fun initialize() {
         // load the states and companies from the resources
         val states = Resources.loadStates()
         val companies = Resources.loadCompanies()
+
+        // set the button data
+        ButtonBar.setButtonData(saveButton, ButtonBar.ButtonData.OK_DONE)
 
         // add all the states
         // this does NOT add the cities, since that will be changed depending on the state
@@ -79,7 +88,7 @@ class StartJobView : View {
         // view model starting city and our starting city depend on each other
         viewModel.startingCityProperty.bindBidirectional(startingCityComboBox.valueProperty())
         // view model starting city choices and our starting city choices depend on each other
-        viewModel.startingCityChoicesProperty.bindBidirectional(startingCityComboBox.itemsProperty())
+        viewModel.startingCitiesAvailableProperty.bindBidirectional(startingCityComboBox.itemsProperty())
 
         // set up the bindings for ending city
         // view model ending state depends on our ending state
@@ -87,7 +96,7 @@ class StartJobView : View {
         // view model ending city and our ending city depend on each other
         viewModel.endingCityProperty.bindBidirectional(endingCityComboBox.valueProperty())
         // view model ending city choices and our ending city choices depend on each other
-        viewModel.endingCityChoicesProperty.bindBidirectional(endingCityComboBox.itemsProperty())
+        viewModel.endingCitiesAvailableProperty.bindBidirectional(endingCityComboBox.itemsProperty())
 
         // set up the bindings for starting and ending company
         // view model starting company depends on our starting company
@@ -109,42 +118,12 @@ class StartJobView : View {
     }
 
     @FXML
-    private fun onStartingCityChange() {
-        viewModel.onStartingCityChange()
-    }
-
-    @FXML
     private fun onEndingStateChange() {
         viewModel.onEndingStateChange()
     }
 
     @FXML
-    private fun onEndingCityChange() {
-        viewModel.onEndingCityChange()
-    }
-
-    @FXML
-    private fun onStartingCompanyChange() {
-        viewModel.onStartingCompanyChange()
-    }
-
-    @FXML
-    private fun onEndingCompanyChange() {
-        viewModel.onEndingCompanyChange()
-    }
-
-    @FXML
-    private fun onLoadTypeChange() {
-        viewModel.onLoadTypeChange()
-    }
-
-    @FXML
-    private fun onLoadWeightChange() {
-        viewModel.onLoadWeightChange()
-    }
-
-    @FXML
-    private fun onLoadWeightMeasurementChange() {
-        viewModel.onLoadWeightMeasurementChange()
+    private fun onSaveButtonPressed() {
+        viewModel.onSaveButtonPressed()
     }
 }

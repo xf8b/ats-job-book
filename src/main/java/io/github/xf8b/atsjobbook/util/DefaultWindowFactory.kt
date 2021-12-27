@@ -21,6 +21,8 @@ package io.github.xf8b.atsjobbook.util
 
 import io.github.xf8b.atsjobbook.view.View
 import javafx.scene.Scene
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 import javafx.stage.Stage
 
 class DefaultWindowFactory : WindowFactory {
@@ -31,7 +33,15 @@ class DefaultWindowFactory : WindowFactory {
             this.scene = Scene(view.root) // use the view's fxml file for the scene
         }.show() // show the window
 
-        LOGGER.debug("Opened a new window with the title $title")
+        LOGGER.info("Opened a new window with the title $title")
+    }
+
+    override fun createErrorAlert(title: String, content: String) {
+        Alert(Alert.AlertType.ERROR, content, ButtonType.CLOSE).apply {
+            this.title = title
+        }.show()
+
+        LOGGER.info("Opened a new error alert with the title $title and content $content")
     }
 
     companion object {
