@@ -25,14 +25,11 @@ import javafx.stage.Stage
 
 class DefaultWindowFactory : WindowFactory {
     override fun createWindow(view: View, title: String) {
-        // create a stage (window)
-        val stage = Stage()
-
-        stage.title = title
-        // use the view's fxml file
-        stage.scene = Scene(view.root)
-
-        stage.show()
+        // create the window
+        Stage().apply {
+            this.title = title // set the title of the window
+            this.scene = Scene(view.root) // use the view's fxml file for the scene
+        }.show() // show the window
 
         LOGGER.debug("Opened a new window with the title $title")
     }

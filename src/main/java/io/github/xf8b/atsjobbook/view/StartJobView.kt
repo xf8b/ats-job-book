@@ -82,17 +82,24 @@ class StartJobView : View {
         viewModel.startingCityChoicesProperty.bindBidirectional(startingCityComboBox.itemsProperty())
 
         // set up the bindings for ending city
-        // TODO: comments
+        // view model ending state depends on our ending state
         viewModel.endingStateProperty.bind(endingStateComboBox.valueProperty())
+        // view model ending city and our ending city depend on each other
         viewModel.endingCityProperty.bindBidirectional(endingCityComboBox.valueProperty())
+        // view model ending city choices and our ending city choices depend on each other
         viewModel.endingCityChoicesProperty.bindBidirectional(endingCityComboBox.itemsProperty())
 
         // set up the bindings for starting and ending company
+        // view model starting company depends on our starting company
         viewModel.startingCompanyProperty.bind(startingCompanyComboBox.valueProperty())
+        // view model ending company depends on our ending company
         viewModel.endingCompanyProperty.bind(endingCompanyComboBox.valueProperty())
 
+        // view model load type depends on our load type
         viewModel.loadTypeProperty.bind(loadTypeTextField.textProperty())
+        // view model load weight depends on our load weight
         viewModel.loadWeightProperty.bind(loadWeightTextField.textProperty())
+        // view model load weight measurement depends on our load weight measurement
         viewModel.loadWeightMeasurementProperty.bind(loadWeightMeasurementComboBox.valueProperty())
     }
 
