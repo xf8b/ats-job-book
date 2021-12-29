@@ -42,9 +42,10 @@ class DefaultWindowFactory : WindowFactory {
     }
 
     override fun createErrorAlert(title: String, content: String) {
+        // create the alert
         Alert(Alert.AlertType.ERROR, content, ButtonType.CLOSE).apply {
-            this.title = title
-        }.show()
+            this.title = title // set the title of the alert
+        }.show() // show the alert
 
         LOGGER.info("Opened a new error alert with the title $title and content $content")
     }

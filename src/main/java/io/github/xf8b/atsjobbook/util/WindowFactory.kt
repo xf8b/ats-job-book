@@ -20,10 +20,16 @@
 package io.github.xf8b.atsjobbook.util
 
 /**
- * A factory which creates windows (11).
+ * A factory which creates windows.
  */
 interface WindowFactory {
+    /**
+     * Creates the window for starting a job.
+     */
     fun createStartJobWindow()
 
+    /**
+     * Creates an error alert with the given title and content.
+     */
     fun createErrorAlert(title: String, content: String)
 }

@@ -42,7 +42,7 @@ class StartJobModel {
 
         LOGGER.info("Updated starting cities available to ${startingCitiesAvailable.joinToString()}")
 
-        // publish event to notify the view model
+        // notify the view model
         eventBus.publish(StartJobEventType.STARTING_CITIES_AVAILABLE_UPDATED)
     }
 
@@ -52,25 +52,37 @@ class StartJobModel {
 
         LOGGER.info("Updated ending cities available to ${endingCitiesAvailable.joinToString()}")
 
-        // publish event to notify the view model
+        // notify the view model
         eventBus.publish(StartJobEventType.ENDING_CITIES_AVAILABLE_UPDATED)
     }
 
     fun save(data: StartJobData) {
         LOGGER.info("Saving a job with data $data")
 
-        val date = DATE_TIME_FORMATTER.format(Instant.now())
-        val filePath = Resources.userDirPath("storage/job-$date.json")
+        try {
+            // get current date in ISO 8601 basic format
+            val date = DATE_TIME_FORMATTER.format(Instant.now())
+            val filePath = Resources.userDirPath("storage/job-$date.json")
 
-        if (Files.notExists(filePath)) {
-            Files.createFile(filePath)
+            if (Files.notExists(filePath)) {
+                // create file if it doesn't exist (which it shouldn't)
+                Files.createFile(filePath)
 
-            LOGGER.info("Created file in location $filePath")
+                LOGGER.info("Created file in location $filePath")
+            }
+
+            // write the json to the file
+            Files.writeString(filePath, GSON.toJson(data))
+
+            // notify the view model
+            eventBus.publish(StartJobEventType.SAVE_COMPLETED)
+        } catch (exception: Exception) {
+            // log the error
+            LOGGER.error("Could not save job", exception)
+
+            // notify the view model
+            eventBus.publish(StartJobEventType.SAVE_ERROR)
         }
-
-        Files.writeString(filePath, GSON.toJson(data))
-
-        eventBus.publish(StartJobEventType.SAVE_COMPLETED)
     }
 
     companion object {
@@ -95,7 +107,15 @@ enum class StartJobEventType : EventType {
      */
     ENDING_CITIES_AVAILABLE_UPDATED,
 
+    /**
+     * Fired when the save is completed.
+     */
     SAVE_COMPLETED,
+
+    /**
+     * Fired when the save could not be completed.
+     */
+    SAVE_ERROR,
 }
 
 data class StartJobData(

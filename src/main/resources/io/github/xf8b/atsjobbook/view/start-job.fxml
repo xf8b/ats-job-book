@@ -74,7 +74,7 @@
                 </items>
             </ComboBox>
         </HBox>
-        <!-- TODO: finish this date and time selection -->
+        <!-- date and time -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="6">
             <Label text="Date and Time"/>
             <ComboBox fx:id="dayOfWeekComboBox" prefWidth="125">
@@ -95,6 +95,7 @@
             <Label text=":" prefWidth="5"/>
             <TextField fx:id="minuteTextField" prefWidth="35"/>
         </HBox>
+        <!-- save button -->
         <ButtonBar GridPane.rowIndex="7">
             <buttons>
                 <Button onAction="#onSaveButtonPressed" text="Save" ButtonBar.buttonData="OK_DONE"/>

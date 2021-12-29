@@ -71,7 +71,9 @@ class StartJobView : View {
 
     @FXML
     private fun initialize() {
+        // if the view model asks to close the current window, close it
         viewModel.eventBus.subscribe(StandardEventType.CLOSE_WINDOW) {
+            // use something random in the scene to get the window
             startingStateComboBox.scene.window.hide()
         }
 
@@ -117,8 +119,11 @@ class StartJobView : View {
         // view model load weight measurement depends on our load weight measurement
         viewModel.loadWeightMeasurementProperty.bind(loadWeightMeasurementComboBox.valueProperty())
 
+        // view model day of week depends on our day of week
         viewModel.dayOfWeekProperty.bind(dayOfWeekComboBox.valueProperty())
+        // view model hour depends on our hour
         viewModel.hourProperty.bind(hourTextField.textProperty())
+        // view model minute depends on our minute
         viewModel.minuteProperty.bind(minuteTextField.textProperty())
     }
 

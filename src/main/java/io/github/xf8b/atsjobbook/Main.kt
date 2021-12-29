@@ -32,6 +32,7 @@ class Main : Application() {
         val storagePath = Resources.userDirPath("storage")
 
         if (Files.notExists(storagePath)) {
+            // create the storage folder if it doesn't exist
             Files.createDirectories(storagePath)
 
             LOGGER.info("Created directory in location $storagePath")

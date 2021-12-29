@@ -36,6 +36,11 @@ class Resources {
     companion object {
         private val LOGGER by LoggerDelegate()
 
+        /**
+         * Gets and returns the [Path] of a file or folder in the user directory.
+         *
+         * @return the [Path] of the file or folder
+         */
         fun userDirPath(name: String): Path = Path.of(System.getProperty("user.dir")).resolve(name)
 
         /**
@@ -63,9 +68,9 @@ class Resources {
 
             stream.bufferedReader().use(Reader::readText)
         } catch (exception: Exception) {
-            throw exception.also {
-                LOGGER.error("An error occurred while trying to load $name", exception)
-            }
+            LOGGER.error("Could not load $name", exception)
+
+            throw RuntimeException(exception)
         }
 
         /**
@@ -81,7 +86,9 @@ class Resources {
                     ?: throw NoSuchElementException("No such file with name $name")
             )
         } catch (exception: Exception) {
-            throw exception.also { LOGGER.error("Could not load FXML file $name", exception) }
+            LOGGER.error("Could not load FXML $name", exception)
+
+            throw RuntimeException(exception)
         }
 
         /**

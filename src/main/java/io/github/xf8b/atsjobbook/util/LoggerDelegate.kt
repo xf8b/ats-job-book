@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory
 import kotlin.reflect.KProperty
 
 /**
- * It just makes things look nicer.
+ * It just makes the code look nicer.
  */
 class LoggerDelegate<in T : Any> {
     private lateinit var logger: Logger

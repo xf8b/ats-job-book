@@ -75,6 +75,13 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
         model.eventBus.subscribe(StartJobEventType.SAVE_COMPLETED) {
             eventBus.publish(StandardEventType.CLOSE_WINDOW)
         }
+
+        model.eventBus.subscribe(StartJobEventType.SAVE_ERROR) {
+            windowFactory.createErrorAlert(
+                title = "An error occurred during saving",
+                content = "Please report this bug to the maintainers and include the log file."
+            )
+        }
     }
 
     fun onStartingStateChange() {
