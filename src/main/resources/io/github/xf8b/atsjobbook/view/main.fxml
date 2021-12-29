@@ -19,15 +19,22 @@
   ~ along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
   -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <GridPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
           fx:controller="io.github.xf8b.atsjobbook.view.MainView"
           prefHeight="100.0" prefWidth="200.0"
           alignment="CENTER"
           hgap="10" vgap="10">
-    <HBox>
-        <Button text="Start Job" onAction="#onStartJob"/>
-    </HBox>
+    <padding>
+        <Insets topRightBottomLeft="20"/>
+    </padding>
+    <VBox spacing="10">
+        <HBox spacing="10">
+            <Button text="Start Job" onAction="#onStartJob"/>
+        </HBox>
+    </VBox>
 </GridPane>

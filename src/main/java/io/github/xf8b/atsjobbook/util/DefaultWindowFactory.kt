@@ -19,6 +19,7 @@
 
 package io.github.xf8b.atsjobbook.util
 
+import io.github.xf8b.atsjobbook.view.StartJobView
 import io.github.xf8b.atsjobbook.view.View
 import javafx.scene.Scene
 import javafx.scene.control.Alert
@@ -26,7 +27,7 @@ import javafx.scene.control.ButtonType
 import javafx.stage.Stage
 
 class DefaultWindowFactory : WindowFactory {
-    override fun createWindow(view: View, title: String) {
+    private fun createWindow(view: View, title: String) {
         // create the window
         Stage().apply {
             this.title = title // set the title of the window
@@ -34,6 +35,10 @@ class DefaultWindowFactory : WindowFactory {
         }.show() // show the window
 
         LOGGER.info("Opened a new window with the title $title")
+    }
+
+    override fun createStartJobWindow() {
+        createWindow(StartJobView(), "ATS Job Book | Start Job")
     }
 
     override fun createErrorAlert(title: String, content: String) {

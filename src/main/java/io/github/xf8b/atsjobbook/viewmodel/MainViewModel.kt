@@ -20,10 +20,9 @@
 package io.github.xf8b.atsjobbook.viewmodel
 
 import io.github.xf8b.atsjobbook.util.WindowFactory
-import io.github.xf8b.atsjobbook.view.StartJobView
 
 class MainViewModel(private val windowFactory: WindowFactory) {
     fun onStartJob() {
-        windowFactory.createWindow(StartJobView(), "Start Job")
+        windowFactory.createStartJobWindow()
     }
 }

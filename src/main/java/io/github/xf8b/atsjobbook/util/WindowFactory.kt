@@ -19,18 +19,11 @@
 
 package io.github.xf8b.atsjobbook.util
 
-import io.github.xf8b.atsjobbook.view.View
-
 /**
  * A factory which creates windows (11).
  */
 interface WindowFactory {
-    /**
-     * Creates a window with the specified [View] and title.
-     *
-     * The preferred size of the window is specified by the FXML file.
-     */
-    fun createWindow(view: View, title: String)
+    fun createStartJobWindow()
 
     fun createErrorAlert(title: String, content: String)
 }

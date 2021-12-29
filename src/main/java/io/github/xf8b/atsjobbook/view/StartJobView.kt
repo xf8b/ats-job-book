@@ -21,11 +21,10 @@ package io.github.xf8b.atsjobbook.view
 
 import io.github.xf8b.atsjobbook.util.DefaultWindowFactory
 import io.github.xf8b.atsjobbook.util.Resources
+import io.github.xf8b.atsjobbook.util.StandardEventType
 import io.github.xf8b.atsjobbook.viewmodel.StartJobViewModel
 import javafx.fxml.FXML
 import javafx.scene.Parent
-import javafx.scene.control.Button
-import javafx.scene.control.ButtonBar
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
@@ -62,16 +61,23 @@ class StartJobView : View {
     private lateinit var loadWeightMeasurementComboBox: ComboBox<String>
 
     @FXML
-    private lateinit var saveButton: Button
+    private lateinit var dayOfWeekComboBox: ComboBox<String>
+
+    @FXML
+    private lateinit var hourTextField: TextField
+
+    @FXML
+    private lateinit var minuteTextField: TextField
 
     @FXML
     private fun initialize() {
+        viewModel.eventBus.subscribe(StandardEventType.CLOSE_WINDOW) {
+            startingStateComboBox.scene.window.hide()
+        }
+
         // load the states and companies from the resources
         val states = Resources.loadStates()
         val companies = Resources.loadCompanies()
-
-        // set the button data
-        ButtonBar.setButtonData(saveButton, ButtonBar.ButtonData.OK_DONE)
 
         // add all the states
         // this does NOT add the cities, since that will be changed depending on the state
@@ -110,6 +116,10 @@ class StartJobView : View {
         viewModel.loadWeightProperty.bind(loadWeightTextField.textProperty())
         // view model load weight measurement depends on our load weight measurement
         viewModel.loadWeightMeasurementProperty.bind(loadWeightMeasurementComboBox.valueProperty())
+
+        viewModel.dayOfWeekProperty.bind(dayOfWeekComboBox.valueProperty())
+        viewModel.hourProperty.bind(hourTextField.textProperty())
+        viewModel.minuteProperty.bind(minuteTextField.textProperty())
     }
 
     @FXML

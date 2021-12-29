@@ -27,6 +27,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.Reader
 import java.net.URL
+import java.nio.file.Path
 
 /**
  * A utility class which helps with finding and loading resources.
@@ -34,6 +35,8 @@ import java.net.URL
 class Resources {
     companion object {
         private val LOGGER by LoggerDelegate()
+
+        fun userDirPath(name: String): Path = Path.of(System.getProperty("user.dir")).resolve(name)
 
         /**
          * Gets and returns the [URL] of a file in the resources.

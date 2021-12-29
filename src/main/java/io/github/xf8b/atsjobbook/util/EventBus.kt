@@ -57,3 +57,7 @@ class EventBus {
  * You are required to implement this for your events to use it in the [EventBus] system.
  */
 interface EventType
+
+enum class StandardEventType : EventType {
+    CLOSE_WINDOW,
+}

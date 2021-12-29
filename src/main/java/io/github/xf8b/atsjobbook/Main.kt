@@ -20,15 +20,25 @@
 package io.github.xf8b.atsjobbook
 
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
+import io.github.xf8b.atsjobbook.util.Resources
 import io.github.xf8b.atsjobbook.view.MainView
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
+import java.nio.file.Files
 
 class Main : Application() {
     override fun start(primaryStage: Stage) {
+        val storagePath = Resources.userDirPath("storage")
+
+        if (Files.notExists(storagePath)) {
+            Files.createDirectories(storagePath)
+
+            LOGGER.info("Created directory in location $storagePath")
+        }
+
         // set up the main screen
-        primaryStage.title = "ATS Job Log"
+        primaryStage.title = "ATS Job Book"
         primaryStage.scene = Scene(MainView().root)
         primaryStage.show()
 

@@ -19,12 +19,18 @@
 
 package io.github.xf8b.atsjobbook.model
 
+import com.google.gson.GsonBuilder
 import io.github.xf8b.atsjobbook.util.EventBus
 import io.github.xf8b.atsjobbook.util.EventType
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
 import io.github.xf8b.atsjobbook.util.Resources
+import java.nio.file.Files
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
-class StartJobModel(private val eventBus: EventBus) {
+class StartJobModel {
+    val eventBus = EventBus()
     var startingCitiesAvailable = listOf<String>()
         private set
     var endingCitiesAvailable = listOf<String>()
@@ -34,43 +40,62 @@ class StartJobModel(private val eventBus: EventBus) {
         // change starting cities available to the state's cities
         startingCitiesAvailable = Resources.loadCities(state)
 
-        LOGGER.info("Starting state was changed to $state")
-        LOGGER.info("Starting cities available are now ${startingCitiesAvailable.joinToString()}")
+        LOGGER.info("Updated starting cities available to ${startingCitiesAvailable.joinToString()}")
 
         // publish event to notify the view model
-        eventBus.publish(StartJobEventType.CHANGE_STARTING_CITIES_AVAILABLE)
+        eventBus.publish(StartJobEventType.STARTING_CITIES_AVAILABLE_UPDATED)
     }
 
     fun updateEndingCitiesAvailable(state: String) {
         // change ending cities available to the state's cities
         endingCitiesAvailable = Resources.loadCities(state)
 
-        LOGGER.info("Ending state was changed to $state")
-        LOGGER.info("Ending cities available are now ${endingCitiesAvailable.joinToString()}")
+        LOGGER.info("Updated ending cities available to ${endingCitiesAvailable.joinToString()}")
 
         // publish event to notify the view model
-        eventBus.publish(StartJobEventType.CHANGE_ENDING_CITIES_AVAILABLE)
+        eventBus.publish(StartJobEventType.ENDING_CITIES_AVAILABLE_UPDATED)
     }
 
     fun save(data: StartJobData) {
-        // TODO: serialize to the storage folder
+        LOGGER.info("Saving a job with data $data")
+
+        val date = DATE_TIME_FORMATTER.format(Instant.now())
+        val filePath = Resources.userDirPath("storage/job-$date.json")
+
+        if (Files.notExists(filePath)) {
+            Files.createFile(filePath)
+
+            LOGGER.info("Created file in location $filePath")
+        }
+
+        Files.writeString(filePath, GSON.toJson(data))
+
+        eventBus.publish(StartJobEventType.SAVE_COMPLETED)
     }
 
     companion object {
         private val LOGGER by LoggerDelegate()
+        private val DATE_TIME_FORMATTER = DateTimeFormatter
+            .ofPattern("uuuuMMdd'T'HHmmssXX")
+            .withZone(ZoneOffset.UTC)
+        private val GSON = GsonBuilder()
+            .setPrettyPrinting()
+            .create()
     }
 }
 
 enum class StartJobEventType : EventType {
     /**
-     * Fired when the available starting city choices have been changed.
+     * Fired when the available starting city choices have been updated.
      */
-    CHANGE_STARTING_CITIES_AVAILABLE,
+    STARTING_CITIES_AVAILABLE_UPDATED,
 
     /**
-     * Fired when the available ending city choices have been changed.
+     * Fired when the available ending city choices have been updated.
      */
-    CHANGE_ENDING_CITIES_AVAILABLE,
+    ENDING_CITIES_AVAILABLE_UPDATED,
+
+    SAVE_COMPLETED,
 }
 
 data class StartJobData(
@@ -83,4 +108,7 @@ data class StartJobData(
     val loadType: String,
     val loadWeight: Int,
     val loadWeightMeasurement: String,
+    val dayOfWeek: String,
+    val hour: Int,
+    val minute: Int
 )
