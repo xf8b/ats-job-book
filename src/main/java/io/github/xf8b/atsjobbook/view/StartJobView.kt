@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -29,8 +29,7 @@ import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
 class StartJobView : View {
-    override val root: Parent
-        get() = Resources.loadFxml("start-job.fxml")
+    override val root: Parent by lazy { Resources.loadFxml("start-job.fxml") }
     private val viewModel = StartJobViewModel(DefaultWindowFactory())
 
     @FXML
@@ -77,18 +76,14 @@ class StartJobView : View {
             startingStateComboBox.scene.window.hide()
         }
 
-        // load the states and companies from the resources
-        val states = Resources.loadStates()
-        val companies = Resources.loadCompanies()
-
         // add all the states
         // this does NOT add the cities, since that will be changed depending on the state
-        startingStateComboBox.items.addAll(states)
-        endingStateComboBox.items.addAll(states)
+        startingStateComboBox.items.addAll(Resources.STATES)
+        endingStateComboBox.items.addAll(Resources.STATES)
 
         // add all the companies
-        startingCompanyComboBox.items.addAll(companies)
-        endingCompanyComboBox.items.addAll(companies)
+        startingCompanyComboBox.items.addAll(Resources.COMPANIES)
+        endingCompanyComboBox.items.addAll(Resources.COMPANIES)
 
         // set up the bindings for starting city
         // view model starting state depends on our starting state

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -38,7 +38,8 @@ class StartJobModel {
 
     fun updateStartingCitiesAvailable(state: String) {
         // change starting cities available to the state's cities
-        startingCitiesAvailable = Resources.loadCities(state)
+        startingCitiesAvailable = Resources.STATES_TO_CITIES[state]
+            ?: throw IllegalStateException("State could not be found in places.json")
 
         LOGGER.info("Updated starting cities available to ${startingCitiesAvailable.joinToString()}")
 
@@ -48,7 +49,8 @@ class StartJobModel {
 
     fun updateEndingCitiesAvailable(state: String) {
         // change ending cities available to the state's cities
-        endingCitiesAvailable = Resources.loadCities(state)
+        endingCitiesAvailable = Resources.STATES_TO_CITIES[state]
+            ?: throw IllegalStateException("State could not be found in places.json")
 
         LOGGER.info("Updated ending cities available to ${endingCitiesAvailable.joinToString()}")
 

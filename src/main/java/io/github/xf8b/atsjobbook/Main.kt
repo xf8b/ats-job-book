@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -19,6 +19,7 @@
 
 package io.github.xf8b.atsjobbook
 
+import io.github.xf8b.atsjobbook.util.I18n
 import io.github.xf8b.atsjobbook.util.LoggerDelegate
 import io.github.xf8b.atsjobbook.util.Resources
 import io.github.xf8b.atsjobbook.view.MainView
@@ -39,7 +40,7 @@ class Main : Application() {
         }
 
         // set up the main screen
-        primaryStage.title = "ATS Job Book"
+        primaryStage.title = I18n.getString("window.main.title")
         primaryStage.scene = Scene(MainView().root)
         primaryStage.show()
 

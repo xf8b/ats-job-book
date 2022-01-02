@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright (c) 2021 xf8b.
+  ~ Copyright (c) 2021-2022 xf8b.
   ~
   ~ This file is part of ats-job-book.
   ~
@@ -35,33 +35,33 @@
     <VBox spacing="10">
         <!-- starting and ending cities -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="0">
-            <Label text="Starting City"/>
-            <ComboBox fx:id="startingStateComboBox" onAction="#onStartingStateChange" prefWidth="150"/>
-            <ComboBox fx:id="startingCityComboBox" prefWidth="200"/>
+            <Label text="%start_job.label.starting_city"/>
+            <ComboBox fx:id="startingStateComboBox" onAction="#onStartingStateChange" value="" prefWidth="150"/>
+            <ComboBox fx:id="startingCityComboBox" value="" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="1">
-            <Label text="Ending City"/>
-            <ComboBox fx:id="endingStateComboBox" onAction="#onEndingStateChange" prefWidth="150"/>
-            <ComboBox fx:id="endingCityComboBox" prefWidth="200"/>
+            <Label text="%start_job.label.ending_city"/>
+            <ComboBox fx:id="endingStateComboBox" onAction="#onEndingStateChange" value="" prefWidth="150"/>
+            <ComboBox fx:id="endingCityComboBox" value="" prefWidth="200"/>
         </HBox>
         <!-- starting and ending companies -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="2">
-            <Label text="Starting Company"/>
-            <ComboBox fx:id="startingCompanyComboBox" prefWidth="200"/>
+            <Label text="%start_job.label.starting_company"/>
+            <ComboBox fx:id="startingCompanyComboBox" value="" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3">
-            <Label text="Ending Company"/>
-            <ComboBox fx:id="endingCompanyComboBox" prefWidth="200"/>
+            <Label text="%start_job.label.ending_company"/>
+            <ComboBox fx:id="endingCompanyComboBox" value="" prefWidth="200"/>
         </HBox>
         <!-- load type and weight -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="4">
-            <Label text="Load Type"/>
+            <Label text="%start_job.label.load_type"/>
             <TextField fx:id="loadTypeTextField" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="5">
-            <Label text="Load Weight"/>
+            <Label text="%start_job.label.load_weight"/>
             <TextField fx:id="loadWeightTextField" prefWidth="100"/>
-            <ComboBox fx:id="loadWeightMeasurementComboBox" prefWidth="125">
+            <ComboBox fx:id="loadWeightMeasurementComboBox" value="" prefWidth="125">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <!-- TODO: remove this and make it a option you set in some option screen -->
@@ -76,8 +76,8 @@
         </HBox>
         <!-- date and time -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="6">
-            <Label text="Date and Time"/>
-            <ComboBox fx:id="dayOfWeekComboBox" prefWidth="125">
+            <Label text="%start_job.label.date_and_time"/>
+            <ComboBox fx:id="dayOfWeekComboBox" value="" prefWidth="125">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <!-- TODO: localization -->
@@ -98,7 +98,7 @@
         <!-- save button -->
         <ButtonBar GridPane.rowIndex="7">
             <buttons>
-                <Button onAction="#onSaveButtonPressed" text="Save" ButtonBar.buttonData="OK_DONE"/>
+                <Button onAction="#onSaveButtonPressed" text="%start_job.button.save" ButtonBar.buttonData="OK_DONE"/>
             </buttons>
         </ButtonBar>
     </VBox>

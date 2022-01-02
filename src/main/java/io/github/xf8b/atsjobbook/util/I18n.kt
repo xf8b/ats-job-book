@@ -19,17 +19,17 @@
 
 package io.github.xf8b.atsjobbook.util
 
-/**
- * A factory which creates windows.
- */
-interface WindowFactory {
-    /**
-     * Creates the window for starting a job.
-     */
-    fun createStartJobWindow()
+import java.util.*
 
-    /**
-     * Creates an error alert with the given header and content.
-     */
-    fun createErrorAlert(headerKey: String, contentKey: String)
+class I18n {
+    companion object {
+        val LOCALE: Locale
+            get() = Locale.forLanguageTag(
+                Resources.PROPERTIES.getProperty("locale").replace("_", "-")
+            )
+        private val RESOURCE_BUNDLE: ResourceBundle
+            get() = ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", LOCALE)
+
+        fun getString(key: String): String = RESOURCE_BUNDLE.getString(key)
+    }
 }

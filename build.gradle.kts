@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -58,7 +58,7 @@ application {
 
 javafx {
     version = "17.0.1"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules("javafx.controls", "javafx.fxml")
 }
 
 tasks {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -26,8 +26,7 @@ import javafx.fxml.FXML
 import javafx.scene.Parent
 
 class MainView : View {
-    override val root: Parent
-        get() = Resources.loadFxml("main.fxml")
+    override val root: Parent by lazy { Resources.loadFxml("main.fxml") }
     private val viewModel = MainViewModel(DefaultWindowFactory())
 
     @FXML

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -30,7 +30,7 @@ class DefaultWindowFactory : WindowFactory {
     private fun createWindow(view: View, title: String) {
         // create the window
         Stage().apply {
-            this.title = title // set the title of the window
+            this.title = title // set the title
             this.scene = Scene(view.root) // use the view's fxml file for the scene
         }.show() // show the window
 
@@ -38,16 +38,20 @@ class DefaultWindowFactory : WindowFactory {
     }
 
     override fun createStartJobWindow() {
-        createWindow(StartJobView(), "ATS Job Book | Start Job")
+        createWindow(StartJobView(), I18n.getString("window.start_job.title"))
     }
 
-    override fun createErrorAlert(title: String, content: String) {
+    override fun createErrorAlert(headerKey: String, contentKey: String) {
+        val header = I18n.getString(headerKey)
+        val content = I18n.getString(contentKey)
+
         // create the alert
         Alert(Alert.AlertType.ERROR, content, ButtonType.CLOSE).apply {
-            this.title = title // set the title of the alert
+            title = I18n.getString("window.error.title") // set the title (not to be confused with the header)
+            headerText = header // set the header
         }.show() // show the alert
 
-        LOGGER.info("Opened a new error alert with the title $title and content $content")
+        LOGGER.info("Opened a new error alert with the header $header and content $content")
     }
 
     companion object {

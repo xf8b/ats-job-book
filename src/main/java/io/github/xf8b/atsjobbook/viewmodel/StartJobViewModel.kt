@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 xf8b.
+ * Copyright (c) 2021-2022 xf8b.
  *
  * This file is part of ats-job-book.
  *
@@ -60,14 +60,14 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
     init {
         model.eventBus.subscribe(StartJobEventType.STARTING_CITIES_AVAILABLE_UPDATED) {
             // reset the value property
-            startingCityProperty.set(null)
+            startingCityProperty.set("")
             // change the starting cities available to the new ones
             startingCitiesAvailableProperty.get().setAll(model.startingCitiesAvailable)
         }
 
         model.eventBus.subscribe(StartJobEventType.ENDING_CITIES_AVAILABLE_UPDATED) {
             // reset the value property
-            endingCityProperty.set(null)
+            endingCityProperty.set("")
             // change the ending cities available to the new ones
             endingCitiesAvailableProperty.get().setAll(model.endingCitiesAvailable)
         }
@@ -78,8 +78,8 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
 
         model.eventBus.subscribe(StartJobEventType.SAVE_ERROR) {
             windowFactory.createErrorAlert(
-                title = "An error occurred during saving",
-                content = "Please report this bug to the maintainers and include the log file."
+                headerKey = "error.save.header",
+                contentKey = "error.save.content"
             )
         }
     }
@@ -106,22 +106,22 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
         val hour = hourProperty.get()
         val minute = minuteProperty.get()
 
-        if (startingState == null
-            || startingCity == null
-            || endingState == null
-            || endingCity == null
-            || startingCompany == null
-            || endingCompany == null
-            || loadType.isNullOrBlank()
-            || loadWeight.isNullOrBlank()
-            || loadWeightMeasurement == null
-            || dayOfWeek == null
-            || hour.isNullOrBlank()
-            || minute.isNullOrBlank()
+        if (startingState.isBlank()
+            || startingCity.isBlank()
+            || endingState.isBlank()
+            || endingCity.isBlank()
+            || startingCompany.isBlank()
+            || endingCompany.isBlank()
+            || loadType.isBlank()
+            || loadWeight.isBlank()
+            || loadWeightMeasurement.isBlank()
+            || dayOfWeek.isBlank()
+            || hour.isBlank()
+            || minute.isBlank()
         ) {
             windowFactory.createErrorAlert(
-                title = "Input is not complete",
-                content = "Please fill out all fields before saving."
+                headerKey = "error.incomplete_input.header",
+                contentKey = "error.incomplete_input.content"
             )
 
             return
@@ -131,14 +131,14 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
 
         if (loadWeightAsInt == null) {
             windowFactory.createErrorAlert(
-                title = "Load weight is invalid",
-                content = "The load weight must be an integer."
+                headerKey = "error.load_weight.header",
+                contentKey = "error.load_weight.content.not_integer"
             )
             return
         } else if (loadWeightAsInt <= 0) {
             windowFactory.createErrorAlert(
-                title = "Load weight is invalid",
-                content = "The load weight must be greater than 0."
+                headerKey = "error.load_weight.header",
+                contentKey = "error.load_weight.content.not_in_bounds"
             )
 
             return
@@ -148,15 +148,15 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
 
         if (hourAsInt == null) {
             windowFactory.createErrorAlert(
-                title = "Hour is invalid",
-                content = "The hour must be an integer."
+                headerKey = "error.hour.header",
+                contentKey = "error.hour.content.not_integer"
             )
 
             return
         } else if (hourAsInt !in 0..23) {
             windowFactory.createErrorAlert(
-                title = "Hour is invalid",
-                content = "The hour must be between 0 and 23 (inclusive)."
+                headerKey = "error.hour.header",
+                contentKey = "error.hour.content.not_in_bounds"
             )
 
             return
@@ -166,15 +166,15 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
 
         if (minuteAsInt == null) {
             windowFactory.createErrorAlert(
-                title = "Minute is invalid",
-                content = "The minute must be an integer."
+                headerKey = "error.minute.header",
+                contentKey = "error.minute.content.not_integer"
             )
 
             return
         } else if (minuteAsInt !in 0..59) {
             windowFactory.createErrorAlert(
-                title = "Minute is invalid",
-                content = "The minute must be between 0 and 59 (inclusive)."
+                headerKey = "error.minute.header",
+                contentKey = "error.minute.content.not_in_bounds"
             )
 
             return
