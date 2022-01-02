@@ -34,7 +34,7 @@
     </padding>
     <VBox spacing="10">
         <HBox spacing="10">
-            <Button text="%main.button.start_job" onAction="#onStartJob"/>
+            <Button text="%button.main.start_job" onAction="#onStartJob"/>
         </HBox>
     </VBox>
 </GridPane>

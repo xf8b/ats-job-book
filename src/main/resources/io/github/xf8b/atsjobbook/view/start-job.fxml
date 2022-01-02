@@ -35,31 +35,31 @@
     <VBox spacing="10">
         <!-- starting and ending cities -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="0">
-            <Label text="%start_job.label.starting_city"/>
+            <Label text="%label.start_job.starting_city"/>
             <ComboBox fx:id="startingStateComboBox" onAction="#onStartingStateChange" value="" prefWidth="150"/>
             <ComboBox fx:id="startingCityComboBox" value="" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="1">
-            <Label text="%start_job.label.ending_city"/>
+            <Label text="%label.start_job.ending_city"/>
             <ComboBox fx:id="endingStateComboBox" onAction="#onEndingStateChange" value="" prefWidth="150"/>
             <ComboBox fx:id="endingCityComboBox" value="" prefWidth="200"/>
         </HBox>
         <!-- starting and ending companies -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="2">
-            <Label text="%start_job.label.starting_company"/>
+            <Label text="%label.start_job.starting_company"/>
             <ComboBox fx:id="startingCompanyComboBox" value="" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3">
-            <Label text="%start_job.label.ending_company"/>
+            <Label text="%label.start_job.ending_company"/>
             <ComboBox fx:id="endingCompanyComboBox" value="" prefWidth="200"/>
         </HBox>
         <!-- load type and weight -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="4">
-            <Label text="%start_job.label.load_type"/>
+            <Label text="%label.start_job.load_type"/>
             <TextField fx:id="loadTypeTextField" prefWidth="200"/>
         </HBox>
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="5">
-            <Label text="%start_job.label.load_weight"/>
+            <Label text="%label.start_job.load_weight"/>
             <TextField fx:id="loadWeightTextField" prefWidth="100"/>
             <ComboBox fx:id="loadWeightMeasurementComboBox" value="" prefWidth="125">
                 <items>
@@ -76,11 +76,10 @@
         </HBox>
         <!-- date and time -->
         <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="6">
-            <Label text="%start_job.label.date_and_time"/>
+            <Label text="%label.start_job.date_and_time"/>
             <ComboBox fx:id="dayOfWeekComboBox" value="" prefWidth="125">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <!-- TODO: localization -->
                         <String fx:value="Sunday"/>
                         <String fx:value="Monday"/>
                         <String fx:value="Tuesday"/>
@@ -98,7 +97,7 @@
         <!-- save button -->
         <ButtonBar GridPane.rowIndex="7">
             <buttons>
-                <Button onAction="#onSaveButtonPressed" text="%start_job.button.save" ButtonBar.buttonData="OK_DONE"/>
+                <Button onAction="#onSaveButtonPressed" text="%button.start_job.save" ButtonBar.buttonData="OK_DONE"/>
             </buttons>
         </ButtonBar>
     </VBox>

@@ -23,12 +23,14 @@ import java.util.*
 
 class I18n {
     companion object {
-        val LOCALE: Locale
-            get() = Locale.forLanguageTag(
-                Resources.PROPERTIES.getProperty("locale").replace("_", "-")
-            )
         private val RESOURCE_BUNDLE: ResourceBundle
             get() = ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", LOCALE)
+        val LOCALE: Locale
+            get() = Locale.forLanguageTag(
+                Resources.PROPERTIES
+                    .getProperty("locale")
+                    .replace("_", "-")
+            )
 
         fun getString(key: String): String = RESOURCE_BUNDLE.getString(key)
     }
