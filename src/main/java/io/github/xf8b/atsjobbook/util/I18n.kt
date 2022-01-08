@@ -23,14 +23,25 @@ import java.util.*
 
 class I18n {
     companion object {
-        private val RESOURCE_BUNDLE: ResourceBundle
-            get() = ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", LOCALE)
-        val LOCALE: Locale
-            get() = Locale.forLanguageTag(
-                Resources.PROPERTIES
-                    .getProperty("locale")
-                    .replace("_", "-")
+        private val LOGGER by LoggerDelegate()
+        private val RESOURCE_BUNDLE: ResourceBundle by lazy {
+            ResourceBundle.getBundle(
+                "io.github.xf8b.atsjobbook.i18n.atsjobbook",
+                LOCALE
             )
+        }
+        val LOCALE: Locale
+            get() = try {
+                Locale.forLanguageTag(
+                    Resources.PROPERTIES
+                        .getProperty("locale")
+                        .replace("_", "-")
+                )
+            } catch (exception: Exception) {
+                LOGGER.error("Invalid locale", exception)
+
+                throw RuntimeException(exception)
+            }
 
         fun getString(key: String): String = RESOURCE_BUNDLE.getString(key)
     }
