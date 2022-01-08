@@ -37,7 +37,7 @@ body:
       options:
         - Windows 10
         - Windows 11
-        - MacOS
+        - macOS
         - Linux
         - Other
     validations:

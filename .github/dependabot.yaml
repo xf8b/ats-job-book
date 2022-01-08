@@ -6,3 +6,9 @@ updates:
       interval: daily
     assignees: [ xf8b ]
     labels: [ dependencies ]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    assignees: [ xf8b ]
+    labels: [ dependencies ]
