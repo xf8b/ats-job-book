@@ -1,19 +1,8 @@
 version: 2
 updates:
-  - package-ecosystem: "gradle"
-    directory: "/"
+  - package-ecosystem: gradle
+    directory: /
     schedule:
-      interval: "daily"
-    assignees:
-      - "xf8b"
-    labels:
-      - "dependencies"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    assignees:
-      - "xf8b"
-    labels:
-      - "dependencies"
+      interval: daily
+    assignees: [ xf8b ]
+    labels: [ dependencies ]
