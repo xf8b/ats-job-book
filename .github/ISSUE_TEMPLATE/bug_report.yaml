@@ -55,6 +55,7 @@ body:
       description: If you can, put the log of the program here.
       placeholder: |-
         Copy and paste the log file into here.
+        
         This field is not required.
       render: shell
     validations:
@@ -65,6 +66,7 @@ body:
       description: Is there anything else you would like to say?
       placeholder: |-
         If you selected "Other" for your operating system, please say what it is here.
+        
         This field is not required.
     validations:
       required: false
