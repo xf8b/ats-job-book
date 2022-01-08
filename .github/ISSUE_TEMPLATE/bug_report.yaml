@@ -7,12 +7,23 @@ body:
     attributes:
       label: Description
       description: What's the bug? How is it triggered? If you can, leave screenshots of the bug here as well.
+      placeholder: |-
+        For example:
+        Bug: The program deletes all of my files
+        How to Trigger:
+        1. Start the program
+        2. The bug happens
+        Screenshots:
+        [screenshot]
     validations:
       required: true
   - type: textarea
     attributes:
       label: Expected Behavior
       description: What did you expect to happen?
+      placeholder: |-
+        For example:
+        I expected that my files would not be deleted.
     validations:
       required: true
   - type: dropdown
@@ -24,20 +35,21 @@ body:
         - Windows 11
         - MacOS
         - Linux
-        - Other (please put in Additional Context)
+        - Other
     validations:
       required: true
   - type: input
     attributes:
       label: Program Version
       description: What program version are you using?
-      placeholder: "for example: 1.69.420"
+      placeholder: "For example: 1.6.9"
     validations:
       required: true
   - type: textarea
     attributes:
       label: Log File
       description: If you can, put the log of the program here.
+      placeholder: Copy and paste the log file into here.
       render: shell
     validations:
       required: false
@@ -45,5 +57,6 @@ body:
     attributes:
       label: Additional Information
       description: Is there anything else you would like to say?
+      placeholder: If you selected "Other" for your operating system, please say what it is here.
     validations:
       required: false
