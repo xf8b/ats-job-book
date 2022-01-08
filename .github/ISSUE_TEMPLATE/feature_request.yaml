@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest an idea to help us improve the program
+labels: [ feature ]
+assignees: [ xf8b ]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: What would you like added? Is it related to a problem that you've had?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Is there anything else you would like to say?
+    validations:
+      required: false

@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a bug to help us improve the program
+labels: [ bug ]
+assignees: [ xf8b ]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: What's the bug? How is it triggered? If you can, leave screenshots of the bug here as well.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Operating System
+      description: What OS are you using?
+      options:
+        - Windows 10
+        - Windows 11
+        - MacOS
+        - Linux
+        - Other (please put in Additional Context)
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Program Version
+      description: What program version are you using?
+      placeholder: "for example: 1.69.420"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Log File
+      description: If you can, put the log of the program here.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional Information
+      description: Is there anything else you would like to say?
+    validations:
+      required: false
