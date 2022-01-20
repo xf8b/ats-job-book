@@ -1,3 +1,3 @@
-# ATS Job Book Contributing Guidelines
+# ats-job-book Contributing Guidelines
 
 TODO

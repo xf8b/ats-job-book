@@ -1,8 +1,8 @@
-# ATS Job Book Security Policy
+# ats-job-book Security Policy
 
 ## Supported Versions
 
-### Meanings
+### Legend
 
 | Text               | Meaning               |
 |--------------------|-----------------------|
