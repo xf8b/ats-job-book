@@ -17,12 +17,19 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.viewmodel
+package io.github.xf8b.atsjobbook.main
 
-import io.github.xf8b.atsjobbook.utility.WindowFactory
+import io.github.xf8b.atsjobbook.View
+import io.github.xf8b.atsjobbook.utility.DefaultWindowFactory
+import io.github.xf8b.atsjobbook.utility.loadFxml
+import javafx.fxml.FXML
 
-class MainViewModel(private val windowFactory: WindowFactory) {
-    fun onStartJob() {
-        windowFactory.createStartJobWindow()
+class MainView : View {
+    override val root by lazy { loadFxml("main.fxml") }
+    private val viewModel = MainViewModel(DefaultWindowFactory())
+
+    @FXML
+    private fun onStartJob() {
+        viewModel.onStartJob()
     }
 }

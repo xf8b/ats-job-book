@@ -19,8 +19,8 @@
 
 package io.github.xf8b.atsjobbook.utility
 
-import io.github.xf8b.atsjobbook.view.StartJobView
-import io.github.xf8b.atsjobbook.view.View
+import io.github.xf8b.atsjobbook.View
+import io.github.xf8b.atsjobbook.startjob.StartJobView
 import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType

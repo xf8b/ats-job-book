@@ -17,10 +17,10 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.view
+package io.github.xf8b.atsjobbook.startjob
 
+import io.github.xf8b.atsjobbook.View
 import io.github.xf8b.atsjobbook.utility.*
-import io.github.xf8b.atsjobbook.viewmodel.StartJobViewModel
 import javafx.fxml.FXML
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField

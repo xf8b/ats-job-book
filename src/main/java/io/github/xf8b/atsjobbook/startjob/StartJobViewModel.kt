@@ -17,11 +17,8 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.viewmodel
+package io.github.xf8b.atsjobbook.startjob
 
-import io.github.xf8b.atsjobbook.model.StartJobData
-import io.github.xf8b.atsjobbook.model.StartJobEventType
-import io.github.xf8b.atsjobbook.model.StartJobModel
 import io.github.xf8b.atsjobbook.utility.EventBus
 import io.github.xf8b.atsjobbook.utility.StandardEventType
 import io.github.xf8b.atsjobbook.utility.WindowFactory

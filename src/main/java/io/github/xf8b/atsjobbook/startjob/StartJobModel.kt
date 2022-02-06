@@ -17,7 +17,7 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.model
+package io.github.xf8b.atsjobbook.startjob
 
 import com.google.gson.GsonBuilder
 import io.github.xf8b.atsjobbook.utility.*

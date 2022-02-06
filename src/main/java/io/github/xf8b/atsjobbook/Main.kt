@@ -19,10 +19,10 @@
 
 package io.github.xf8b.atsjobbook
 
+import io.github.xf8b.atsjobbook.main.MainView
 import io.github.xf8b.atsjobbook.utility.LoggerDelegate
 import io.github.xf8b.atsjobbook.utility.getLocalizedString
 import io.github.xf8b.atsjobbook.utility.userDirectoryPath
-import io.github.xf8b.atsjobbook.view.MainView
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
