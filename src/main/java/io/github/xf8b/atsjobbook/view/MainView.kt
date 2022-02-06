@@ -19,14 +19,13 @@
 
 package io.github.xf8b.atsjobbook.view
 
-import io.github.xf8b.atsjobbook.util.DefaultWindowFactory
-import io.github.xf8b.atsjobbook.util.Resources
+import io.github.xf8b.atsjobbook.utility.DefaultWindowFactory
+import io.github.xf8b.atsjobbook.utility.loadFxml
 import io.github.xf8b.atsjobbook.viewmodel.MainViewModel
 import javafx.fxml.FXML
-import javafx.scene.Parent
 
 class MainView : View {
-    override val root: Parent by lazy { Resources.loadFxml("main.fxml") }
+    override val root by lazy { loadFxml("main.fxml") }
     private val viewModel = MainViewModel(DefaultWindowFactory())
 
     @FXML

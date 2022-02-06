@@ -17,7 +17,7 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.util
+package io.github.xf8b.atsjobbook.utility
 
 import io.github.xf8b.atsjobbook.view.StartJobView
 import io.github.xf8b.atsjobbook.view.View
@@ -30,28 +30,30 @@ class DefaultWindowFactory : WindowFactory {
     private fun createWindow(view: View, title: String) {
         // create the window
         Stage().apply {
-            this.title = title // set the title
+            this.title = title
             this.scene = Scene(view.root) // use the view's fxml file for the scene
         }.show() // show the window
 
-        LOGGER.info("Opened a new window with the title $title")
+        LOGGER.info("""Opened a new window with the title "$title"""")
     }
 
     override fun createStartJobWindow() {
-        createWindow(StartJobView(), I18n.getString("window.start_job.title"))
+        createWindow(StartJobView(), getLocalizedString("window.start_job.title"))
     }
 
     override fun createErrorAlert(headerKey: String, contentKey: String) {
-        val header = I18n.getString(headerKey)
-        val content = I18n.getString(contentKey)
+        val header = getLocalizedString(headerKey)
+        val content = getLocalizedString(contentKey)
 
         // create the alert
-        Alert(Alert.AlertType.ERROR, content, ButtonType.CLOSE).apply {
-            title = I18n.getString("window.error.title") // set the title (not to be confused with the header)
-            headerText = header // set the header
+        Alert(Alert.AlertType.ERROR).apply {
+            title = getLocalizedString("window.error.title") // set the title (not to be confused with the header)
+            headerText = header
+            contentText = content
+            buttonTypes.setAll(ButtonType.CLOSE)
         }.show() // show the alert
 
-        LOGGER.info("Opened a new error alert with the header $header and content $content")
+        LOGGER.info("""Opened a new error alert with the header "$header" and content "$content"""")
     }
 
     companion object {

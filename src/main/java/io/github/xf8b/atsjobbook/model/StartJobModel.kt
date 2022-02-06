@@ -20,10 +20,7 @@
 package io.github.xf8b.atsjobbook.model
 
 import com.google.gson.GsonBuilder
-import io.github.xf8b.atsjobbook.util.EventBus
-import io.github.xf8b.atsjobbook.util.EventType
-import io.github.xf8b.atsjobbook.util.LoggerDelegate
-import io.github.xf8b.atsjobbook.util.Resources
+import io.github.xf8b.atsjobbook.utility.*
 import java.nio.file.Files
 import java.time.Instant
 import java.time.ZoneOffset
@@ -38,8 +35,8 @@ class StartJobModel {
 
     fun updateStartingCitiesAvailable(state: String) {
         // change starting cities available to the state's cities
-        startingCitiesAvailable = Resources.STATES_TO_CITIES[state]
-            ?: throw IllegalStateException("State could not be found in places.json")
+        startingCitiesAvailable = STATES_TO_CITIES[state]
+            ?: throw IllegalArgumentException("""State "$state" could not be found in places.json""")
 
         LOGGER.info("Updated starting cities available to ${startingCitiesAvailable.joinToString()}")
 
@@ -49,8 +46,8 @@ class StartJobModel {
 
     fun updateEndingCitiesAvailable(state: String) {
         // change ending cities available to the state's cities
-        endingCitiesAvailable = Resources.STATES_TO_CITIES[state]
-            ?: throw IllegalStateException("State could not be found in places.json")
+        endingCitiesAvailable = STATES_TO_CITIES[state]
+            ?: throw IllegalArgumentException("""State "$state" could not be found in places.json""")
 
         LOGGER.info("Updated ending cities available to ${endingCitiesAvailable.joinToString()}")
 
@@ -64,14 +61,9 @@ class StartJobModel {
         try {
             // get current date in ISO 8601 basic format
             val date = DATE_TIME_FORMATTER.format(Instant.now())
-            val filePath = Resources.userDirPath("storage/job-$date.json")
+            val filePath = userDirectoryPath("storage/job-$date.json")
 
-            if (Files.notExists(filePath)) {
-                // create file if it doesn't exist (which it shouldn't)
-                Files.createFile(filePath)
-
-                LOGGER.info("Created file in location $filePath")
-            }
+            createFileIfNotExists(filePath)
 
             // write the json to the file
             Files.writeString(filePath, GSON.toJson(data))

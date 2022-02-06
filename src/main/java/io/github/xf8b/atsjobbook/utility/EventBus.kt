@@ -17,7 +17,7 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.util
+package io.github.xf8b.atsjobbook.utility
 
 import javafx.application.Platform
 

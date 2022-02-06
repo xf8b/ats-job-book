@@ -17,6 +17,8 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
+
 plugins {
     java // language
     kotlin("jvm") version "1.6.10" // language
@@ -57,12 +59,12 @@ application {
 }
 
 javafx {
-    version = "17.0.1"
+    version = "17.0.2"
     modules("javafx.controls", "javafx.fxml")
 }
 
 tasks {
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    withType<CompileKotlin>().configureEach {
         kotlinOptions {
             jvmTarget = "17" // use java 17
             languageVersion = "1.6" // use kotlin 1.6

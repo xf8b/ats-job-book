@@ -19,17 +19,14 @@
 
 package io.github.xf8b.atsjobbook.view
 
-import io.github.xf8b.atsjobbook.util.DefaultWindowFactory
-import io.github.xf8b.atsjobbook.util.Resources
-import io.github.xf8b.atsjobbook.util.StandardEventType
+import io.github.xf8b.atsjobbook.utility.*
 import io.github.xf8b.atsjobbook.viewmodel.StartJobViewModel
 import javafx.fxml.FXML
-import javafx.scene.Parent
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
 class StartJobView : View {
-    override val root: Parent by lazy { Resources.loadFxml("start-job.fxml") }
+    override val root by lazy { loadFxml("start-job.fxml") }
     private val viewModel = StartJobViewModel(DefaultWindowFactory())
 
     @FXML
@@ -78,12 +75,12 @@ class StartJobView : View {
 
         // add all the states
         // this does NOT add the cities, since that will be changed depending on the state
-        startingStateComboBox.items.addAll(Resources.STATES)
-        endingStateComboBox.items.addAll(Resources.STATES)
+        startingStateComboBox.items.addAll(STATES)
+        endingStateComboBox.items.addAll(STATES)
 
         // add all the companies
-        startingCompanyComboBox.items.addAll(Resources.COMPANIES)
-        endingCompanyComboBox.items.addAll(Resources.COMPANIES)
+        startingCompanyComboBox.items.addAll(COMPANIES)
+        endingCompanyComboBox.items.addAll(COMPANIES)
 
         // set up the bindings for starting city
         // view model starting state depends on our starting state

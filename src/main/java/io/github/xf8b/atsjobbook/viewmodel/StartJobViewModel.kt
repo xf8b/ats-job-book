@@ -22,9 +22,9 @@ package io.github.xf8b.atsjobbook.viewmodel
 import io.github.xf8b.atsjobbook.model.StartJobData
 import io.github.xf8b.atsjobbook.model.StartJobEventType
 import io.github.xf8b.atsjobbook.model.StartJobModel
-import io.github.xf8b.atsjobbook.util.EventBus
-import io.github.xf8b.atsjobbook.util.StandardEventType
-import io.github.xf8b.atsjobbook.util.WindowFactory
+import io.github.xf8b.atsjobbook.utility.EventBus
+import io.github.xf8b.atsjobbook.utility.StandardEventType
+import io.github.xf8b.atsjobbook.utility.WindowFactory
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
@@ -73,7 +73,7 @@ class StartJobViewModel(private val windowFactory: WindowFactory) {
         }
 
         model.eventBus.subscribe(StartJobEventType.SAVE_COMPLETED) {
-            eventBus.publish(StandardEventType.CLOSE_WINDOW)
+            this.eventBus.publish(StandardEventType.CLOSE_WINDOW)
         }
 
         model.eventBus.subscribe(StartJobEventType.SAVE_ERROR) {

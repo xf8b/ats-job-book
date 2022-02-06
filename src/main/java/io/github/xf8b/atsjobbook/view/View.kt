@@ -19,7 +19,7 @@
 
 package io.github.xf8b.atsjobbook.view
 
-import io.github.xf8b.atsjobbook.util.Resources
+import io.github.xf8b.atsjobbook.utility.loadFxml
 import javafx.scene.Parent
 import java.io.IOException
 
@@ -32,7 +32,7 @@ interface View {
      *
      * @throws NoSuchElementException if there is no such file with the specified name
      * @throws IOException if an error occurs during loading (and the file exists)
-     * @see Resources.loadFxml
+     * @see loadFxml
      */
     val root: Parent
 }

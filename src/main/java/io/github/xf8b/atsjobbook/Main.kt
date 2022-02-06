@@ -19,9 +19,9 @@
 
 package io.github.xf8b.atsjobbook
 
-import io.github.xf8b.atsjobbook.util.I18n
-import io.github.xf8b.atsjobbook.util.LoggerDelegate
-import io.github.xf8b.atsjobbook.util.Resources
+import io.github.xf8b.atsjobbook.utility.LoggerDelegate
+import io.github.xf8b.atsjobbook.utility.getLocalizedString
+import io.github.xf8b.atsjobbook.utility.userDirectoryPath
 import io.github.xf8b.atsjobbook.view.MainView
 import javafx.application.Application
 import javafx.scene.Scene
@@ -30,7 +30,7 @@ import java.nio.file.Files
 
 class Main : Application() {
     override fun start(primaryStage: Stage) {
-        val storagePath = Resources.userDirPath("storage")
+        val storagePath = userDirectoryPath("storage")
 
         if (Files.notExists(storagePath)) {
             // create the storage folder if it doesn't exist
@@ -40,7 +40,7 @@ class Main : Application() {
         }
 
         // set up the main screen
-        primaryStage.title = I18n.getString("window.main.title")
+        primaryStage.title = getLocalizedString("window.main.title")
         primaryStage.scene = Scene(MainView().root)
         primaryStage.show()
 

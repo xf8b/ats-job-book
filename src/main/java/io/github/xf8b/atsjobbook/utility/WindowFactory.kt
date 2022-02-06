@@ -17,12 +17,19 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.viewmodel
+package io.github.xf8b.atsjobbook.utility
 
-import io.github.xf8b.atsjobbook.utility.WindowFactory
+/**
+ * A factory which creates windows.
+ */
+interface WindowFactory {
+    /**
+     * Creates the window for starting a job.
+     */
+    fun createStartJobWindow()
 
-class MainViewModel(private val windowFactory: WindowFactory) {
-    fun onStartJob() {
-        windowFactory.createStartJobWindow()
-    }
+    /**
+     * Creates an error alert with the given header and content.
+     */
+    fun createErrorAlert(headerKey: String, contentKey: String)
 }

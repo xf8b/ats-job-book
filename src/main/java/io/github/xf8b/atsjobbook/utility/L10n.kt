@@ -17,19 +17,18 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook.util
+package io.github.xf8b.atsjobbook.utility
 
-/**
- * A factory which creates windows.
- */
-interface WindowFactory {
-    /**
-     * Creates the window for starting a job.
-     */
-    fun createStartJobWindow()
+import java.util.*
 
-    /**
-     * Creates an error alert with the given header and content.
-     */
-    fun createErrorAlert(headerKey: String, contentKey: String)
+private val LOCALE: Locale
+    get() = try {
+        Locale.forLanguageTag(PROPERTIES.getProperty("locale").replace("_", "-"))
+    } catch (exception: Exception) {
+        throw IllegalArgumentException("Invalid locale", exception)
+    }
+val RESOURCE_BUNDLE: ResourceBundle by lazy {
+    ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", LOCALE)
 }
+
+fun getLocalizedString(key: String): String = RESOURCE_BUNDLE.getString(key)
