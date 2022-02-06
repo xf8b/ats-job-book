@@ -17,7 +17,7 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.xf8b.atsjobbook
+package io.github.xf8b.atsjobbook.view
 
 import io.github.xf8b.atsjobbook.utility.loadFxml
 import javafx.scene.Parent
