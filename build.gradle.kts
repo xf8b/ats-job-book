@@ -38,7 +38,7 @@ repositories {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10") // kotlin reflection
     implementation("ch.qos.logback:logback-classic:1.2.10") // logging
-    implementation("com.google.code.gson:gson:2.8.9") // json
+    implementation("com.google.code.gson:gson:2.9.0") // json
     testImplementation(platform("org.junit:junit-bom:5.8.2")) // testing
     testImplementation("org.junit.jupiter:junit-jupiter") // testing
 }
