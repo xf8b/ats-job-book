@@ -32,7 +32,7 @@ class EventBus {
     private val subscribers = mutableMapOf<EventType, MutableList<() -> Unit>>()
 
     /**
-     * Subscribe to a specific event; when that event fires, you will be notified via the [subscriber].
+     * Subscribes to a specific event using the [subscriber].
      *
      * @param event the event to subscribe to
      * @param subscriber what to do when that event is fired
