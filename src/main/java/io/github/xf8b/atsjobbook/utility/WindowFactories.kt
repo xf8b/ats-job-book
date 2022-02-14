@@ -26,6 +26,18 @@ import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.stage.Stage
 
+interface WindowFactory {
+    /**
+     * Creates the window for starting a job.
+     */
+    fun createStartJobWindow()
+
+    /**
+     * Creates an error alert with the given header and content.
+     */
+    fun createErrorAlert(headerKey: String, contentKey: String)
+}
+
 class DefaultWindowFactory : WindowFactory {
     private fun createWindow(view: View, title: String) {
         // create the window
@@ -47,7 +59,7 @@ class DefaultWindowFactory : WindowFactory {
 
         // create the alert
         Alert(Alert.AlertType.ERROR).apply {
-            title = getLocalizedString("window.error.title") // set the title (not to be confused with the header)
+            title = getLocalizedString("window.error.title") // not the same as the header
             headerText = header
             contentText = content
             buttonTypes.setAll(ButtonType.CLOSE)

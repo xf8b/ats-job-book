@@ -25,8 +25,9 @@ import io.github.xf8b.atsjobbook.viewmodel.MainViewModel
 import javafx.fxml.FXML
 
 class MainView : View {
-    override val root by lazy { loadFxml("main.fxml") }
-    private val viewModel = MainViewModel(DefaultWindowFactory())
+    private val windowFactory = DefaultWindowFactory()
+    override val root by lazy { loadFxml("main.fxml", windowFactory) }
+    private val viewModel = MainViewModel(windowFactory)
 
     @FXML
     private fun onStartJob() {

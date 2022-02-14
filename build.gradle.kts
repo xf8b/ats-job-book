@@ -26,7 +26,7 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.0.11" // javafx
 }
 
-// package details
+// the project's package details
 group = "io.github.xf8b"
 base.archivesName.set("ats-job-book")
 version = "0.1.0"
@@ -39,6 +39,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10") // kotlin reflection
     implementation("ch.qos.logback:logback-classic:1.2.10") // logging
     implementation("com.google.code.gson:gson:2.9.0") // json
+
     testImplementation(platform("org.junit:junit-bom:5.8.2")) // testing
     testImplementation("org.junit.jupiter:junit-jupiter") // testing
 }
@@ -47,6 +48,7 @@ java {
     toolchain {
         // require java 17
         languageVersion.set(JavaLanguageVersion.of(17))
+        vendor.set(JvmVendorSpec.ADOPTIUM)
     }
 
     // enable module-path inferring
@@ -82,11 +84,10 @@ tasks {
 
     compileJava {
         // set module version
-        options.javaModuleVersion.set(provider { project.version as String })
+        options.javaModuleVersion.set(provider { project.version.toString() })
     }
 
     test {
-        // use junit platform for testing
         useJUnitPlatform()
     }
 }

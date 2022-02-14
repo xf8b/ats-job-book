@@ -25,28 +25,35 @@ import javafx.application.Platform
  * A simple implementation of an event bus (or subscriber system).
  *
  * Event types must implement [EventType].
+ *
+ * @see EventType
  */
 class EventBus {
     private val subscribers = mutableMapOf<EventType, MutableList<() -> Unit>>()
 
     /**
-     * Subscribe to a specific event; when that event fires, you will be notified via [subscriber].
+     * Subscribe to a specific event; when that event fires, you will be notified via the [subscriber].
+     *
+     * @param event the event to subscribe to
+     * @param subscriber what to do when that event is fired
      */
     fun subscribe(event: EventType, subscriber: () -> Unit) {
         // if no subscribers with this event have been added yet, create an empty list for the event
         if (!subscribers.containsKey(event)) subscribers[event] = mutableListOf()
 
         // add the subscriber
-        subscribers[event]?.plusAssign(subscriber)
+        subscribers[event]!! += subscriber
     }
 
     /**
      * Publish an event, notifying all the subscribers that subscribed to this event type.
+     *
+     * @param event the event to fire
      */
     fun publish(event: EventType) {
         Platform.runLater {
             // fire each subscriber (if any have subscribed)
-            subscribers[event]?.forEach { it() }
+            subscribers[event]?.forEach { subscriber -> subscriber.invoke() }
         }
     }
 }
@@ -55,6 +62,8 @@ class EventBus {
  * An event type.
  *
  * You are required to implement this for your events to use it in the [EventBus] system.
+ *
+ * @see EventBus
  */
 interface EventType
 

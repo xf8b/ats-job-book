@@ -26,8 +26,9 @@ import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
 class StartJobView : View {
-    override val root by lazy { loadFxml("start-job.fxml") }
-    private val viewModel = StartJobViewModel(DefaultWindowFactory())
+    private val windowFactory = DefaultWindowFactory()
+    override val root by lazy { loadFxml("start-job.fxml", windowFactory) }
+    private val viewModel = StartJobViewModel(windowFactory)
 
     @FXML
     private lateinit var startingStateComboBox: ComboBox<String>

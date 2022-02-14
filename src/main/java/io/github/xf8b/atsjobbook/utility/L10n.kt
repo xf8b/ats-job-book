@@ -21,14 +21,14 @@ package io.github.xf8b.atsjobbook.utility
 
 import java.util.*
 
-private val LOCALE: Locale
-    get() = try {
-        Locale.forLanguageTag(PROPERTIES.getProperty("locale").replace("_", "-"))
+val RESOURCE_BUNDLE: ResourceBundle by lazy {
+    val locale = try {
+        Locale.forLanguageTag(PROPERTIES.getProperty("locale").replace(oldValue = "_", newValue = "-"))
     } catch (exception: Exception) {
         throw IllegalArgumentException("Invalid locale", exception)
     }
-val RESOURCE_BUNDLE: ResourceBundle by lazy {
-    ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", LOCALE)
+
+    return@lazy ResourceBundle.getBundle("io.github.xf8b.atsjobbook.i18n.atsjobbook", locale)
 }
 
 fun getLocalizedString(key: String): String = RESOURCE_BUNDLE.getString(key)
