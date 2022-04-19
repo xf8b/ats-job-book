@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20") // kotlin reflection
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21") // kotlin reflection
     implementation("ch.qos.logback:logback-classic:1.2.11") // logging
     implementation("com.google.code.gson:gson:2.9.0") // json
 
