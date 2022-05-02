@@ -23,7 +23,7 @@ plugins {
     java // language
     kotlin("jvm") version "1.6.21" // language
     application // running
-    id("org.openjfx.javafxplugin") version "0.0.12" // javafx
+    id("org.openjfx.javafxplugin") version "0.0.13" // javafx
 }
 
 // the project's package details
