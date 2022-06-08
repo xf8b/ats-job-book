@@ -21,7 +21,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
 
 plugins {
     java // language
-    kotlin("jvm") version "1.6.21" // language
+    kotlin("jvm") version "1.7.0" // language
     application // running
     id("org.openjfx.javafxplugin") version "0.0.13" // javafx
 }
