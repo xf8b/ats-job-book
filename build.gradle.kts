@@ -17,16 +17,13 @@
  * along with ats-job-book. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile as CompileKotlin
-
 plugins {
-    java // language
-    kotlin("jvm") version "1.6.21" // language
-    application // running
-    id("org.openjfx.javafxplugin") version "0.0.13" // javafx
+    java
+    kotlin("jvm") version "1.7.0"
+    application
+    id("org.openjfx.javafxplugin") version "0.0.13"
 }
 
-// the project's package details
 group = "io.github.xf8b"
 base.archivesName.set("ats-job-book")
 version = "0.1.0"
@@ -36,23 +33,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21") // kotlin reflection
-    implementation("ch.qos.logback:logback-classic:1.2.11") // logging
-    implementation("com.google.code.gson:gson:2.9.0") // json
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.0") // Kotlin reflection
+    implementation("ch.qos.logback:logback-classic:1.2.11") // Logback
+    implementation("com.google.code.gson:gson:2.9.0") // Gson
 
-    testImplementation(platform("org.junit:junit-bom:5.8.2")) // testing
-    testImplementation("org.junit.jupiter:junit-jupiter") // testing
+    testImplementation(platform("org.junit:junit-bom:5.8.2")) // JUnit bill of materials
+    testImplementation("org.junit.jupiter:junit-jupiter") // JUnit Jupiter
 }
 
-java {
-    toolchain {
-        // require java 17
-        languageVersion.set(JavaLanguageVersion.of(17))
-        vendor.set(JvmVendorSpec.ADOPTIUM)
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(18)) // require Java 18
+        vendor.set(JvmVendorSpec.ADOPTIUM) // get a JDK from Adoptium if none are found
     }
-
-    // enable module-path inferring
-    modularity.inferModulePath.set(true)
 }
 
 application {
@@ -61,15 +54,15 @@ application {
 }
 
 javafx {
-    version = "17.0.2"
+    version = "18.0.1"
     modules("javafx.controls", "javafx.fxml")
 }
 
 tasks {
-    withType<CompileKotlin>().configureEach {
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = "17" // use java 17
-            languageVersion = "1.6" // use kotlin 1.6
+            // target the current java version used (which should be Java 18)
+            jvmTarget = JavaVersion.current().toString()
         }
     }
 
