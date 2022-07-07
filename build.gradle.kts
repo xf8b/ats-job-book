@@ -19,7 +19,7 @@
 
 plugins {
     java
-    kotlin("jvm") version "1.7.0"
+    kotlin("jvm") version "1.7.10"
     application
     id("org.openjfx.javafxplugin") version "0.0.13"
 }
