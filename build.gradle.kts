@@ -37,7 +37,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.11") // Logback
     implementation("com.google.code.gson:gson:2.9.0") // Gson
 
-    testImplementation(platform("org.junit:junit-bom:5.8.2")) // JUnit bill of materials
+    testImplementation(platform("org.junit:junit-bom:5.9.0")) // JUnit bill of materials
     testImplementation("org.junit.jupiter:junit-jupiter") // JUnit Jupiter
 }
 
